@@ -50,6 +50,12 @@ namespace TechZone.Data.Infrastructure
             dbSet.Remove(entity);
         }
 
+        public virtual void Delete(int id)
+        {
+            var entity = dbSet.Find(id);
+            dbSet.Remove(entity);
+        }
+
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();

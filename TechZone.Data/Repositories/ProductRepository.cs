@@ -3,7 +3,7 @@ using TechZone.Model.Models;
 
 namespace TechZone.Data.Repositories
 {
-    public interface IProductRepository
+    public interface IProductRepository : IRepository<Product>
     {
     }
 
