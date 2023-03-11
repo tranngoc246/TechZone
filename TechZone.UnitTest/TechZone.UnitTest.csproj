@@ -5,12 +5,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4297C4C3-508E-45AC-BB1B-490D9FC1E211}</ProjectGuid>
+    <ProjectGuid>{5C33DB0D-8522-43FC-B6F4-F6449FA6879D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TechZone.UnitTest</RootNamespace>
     <AssemblyName>TechZone.UnitTest</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -56,23 +56,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TechZone.Common\TechZone.Common.csproj">
-      <Project>{8e9921c9-84a1-44dc-ae19-f4679f7c6e39}</Project>
+      <Project>{c25553fc-ca63-4570-afa5-2faef0b74101}</Project>
       <Name>TechZone.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\TechZone.Data\TechZone.Data.csproj">
-      <Project>{0ad3a23e-5063-4bb0-a51d-c16d472ed170}</Project>
+      <Project>{a4729894-6986-4740-ab34-512eca6a9d65}</Project>
       <Name>TechZone.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\TechZone.Model\TechZone.Model.csproj">
-      <Project>{c8cdfbd2-fa8c-4862-97c5-a9dd0a913ea3}</Project>
+      <Project>{ea48be44-976f-4486-bdf3-aa416db13a9f}</Project>
       <Name>TechZone.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\TechZone.Service\TechZone.Service.csproj">
-      <Project>{43fcb86f-14b9-4024-9be7-21b55ff2bb29}</Project>
+      <Project>{c6893470-4037-41d9-9fa2-f8fb919cff84}</Project>
       <Name>TechZone.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\TechZone.Web\TechZone.Web.csproj">
-      <Project>{98721e78-10a9-4af0-a153-966a3b8838ae}</Project>
+      <Project>{e954120c-c29b-4661-aba0-6492039e14f5}</Project>
       <Name>TechZone.Web</Name>
     </ProjectReference>
   </ItemGroup>
