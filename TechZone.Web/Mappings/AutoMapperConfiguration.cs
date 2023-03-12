@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using System.Security.Cryptography;
 using TechZone.Model.Models;
 using TechZone.Web.Models;

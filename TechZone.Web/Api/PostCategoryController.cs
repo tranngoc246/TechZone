@@ -18,13 +18,13 @@ namespace TechZone.Web.Api
     {
         private IPostCategoryService _postCategoryService;
 
-        private readonly IMapper _mapper;
+        private IMappingService _mappingService;
 
-        public PostCategoryController(IErrorService errorService, IPostCategoryService postCategoryService) :
+        public PostCategoryController(IErrorService errorService, IPostCategoryService postCategoryService, IMappingService mappingService) :
             base(errorService)
         {
             this._postCategoryService = postCategoryService;
-            this._mapper = AutoMapperConfiguration.mapper;
+            this._mappingService = mappingService;
         }
 
         [Route("getall")]
@@ -33,7 +33,7 @@ namespace TechZone.Web.Api
             return CreateHttpResponse(request, () =>
             {
                 var listCategory = _postCategoryService.GetAll();
-                var listPostCategoryVm = _mapper.Map<List<PostCategoryViewModel>>(listCategory);
+                var listPostCategoryVm = _mappingService.Mapper.Map<List<PostCategoryViewModel>>(listCategory);
 
                 var response = new HttpResponseMessage(HttpStatusCode.OK);
                 var content = new ObjectContent<List<PostCategoryViewModel>>(listPostCategoryVm, new JsonMediaTypeFormatter(), "application/json");

@@ -11,6 +11,7 @@ using TechZone.Data.Infracstructure;
 using TechZone.Data.Infrastructure;
 using TechZone.Data.Repositories;
 using TechZone.Service;
+using TechZone.Web.Mappings;
 
 [assembly: OwinStartup(typeof(TechZone.Web.App_Start.Startup))]
 
@@ -46,10 +47,14 @@ namespace TechZone.Web.App_Start
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
 
-            Autofac.IContainer container = builder.Build();
+            builder.RegisterType<ErrorService>().As<IErrorService>().InstancePerRequest();
+
+            builder.RegisterType<MappingService>().As<IMappingService>().InstancePerRequest();
+
+            IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
-            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver((IContainer)container); //Set the WebApi DependencyResolver
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container); //Set the WebApi DependencyResolver
         }
     }
 }
