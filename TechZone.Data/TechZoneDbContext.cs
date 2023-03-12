@@ -1,9 +1,10 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using TechZone.Model.Models;
 
 namespace TechZone.Data
 {
-    public class TechZoneDbContext : DbContext
+    public class TechZoneDbContext : IdentityDbContext<ApplicationUser>
     {
         public TechZoneDbContext() : base("TechZoneConnection")
         {
@@ -29,8 +30,15 @@ namespace TechZone.Data
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
         public DbSet<Error> Errors { set; get; }
 
+        public static TechZoneDbContext Create()
+        {
+            return new TechZoneDbContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder builder)
         {
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
