@@ -41,7 +41,7 @@ namespace TechZone.UnitTest.RepositoryTest
             unitOfWork.Commit();
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.ID);
+            Assert.AreEqual(6, result.ID);
         }
     }
 }
