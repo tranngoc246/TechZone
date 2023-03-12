@@ -1,9 +1,15 @@
-﻿using System.Net;
+﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using TechZone.Model.Models;
 using TechZone.Service;
 using TechZone.Web.Infrastructure.Core;
+using TechZone.Web.Infrastructure.Extensions;
+using TechZone.Web.Mappings;
+using TechZone.Web.Models;
 
 namespace TechZone.Web.Api
 {
@@ -12,10 +18,13 @@ namespace TechZone.Web.Api
     {
         private IPostCategoryService _postCategoryService;
 
+        private readonly IMapper _mapper;
+
         public PostCategoryController(IErrorService errorService, IPostCategoryService postCategoryService) :
             base(errorService)
         {
             this._postCategoryService = postCategoryService;
+            this._mapper = AutoMapperConfiguration.mapper;
         }
 
         [Route("getall")]
@@ -24,15 +33,18 @@ namespace TechZone.Web.Api
             return CreateHttpResponse(request, () =>
             {
                 var listCategory = _postCategoryService.GetAll();
+                var listPostCategoryVm = _mapper.Map<List<PostCategoryViewModel>>(listCategory);
 
-                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listCategory);
-
+                var response = new HttpResponseMessage(HttpStatusCode.OK);
+                var content = new ObjectContent<List<PostCategoryViewModel>>(listPostCategoryVm, new JsonMediaTypeFormatter(), "application/json");
+                response.Content = content;
 
                 return response;
             });
         }
 
-        public HttpResponseMessage Post(HttpRequestMessage request, PostCategory postCategory)
+        [Route("add")]
+        public HttpResponseMessage Post(HttpRequestMessage request, PostCategoryViewModel postCategoryVm)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -43,7 +55,10 @@ namespace TechZone.Web.Api
                 }
                 else
                 {
-                    var category = _postCategoryService.Add(postCategory);
+                    PostCategory newPostCategory = new PostCategory();
+                    newPostCategory.UpdatePostCategory(postCategoryVm);
+
+                    var category = _postCategoryService.Add(newPostCategory);
                     _postCategoryService.Save();
 
                     response = request.CreateResponse(HttpStatusCode.Created, category);
@@ -52,7 +67,8 @@ namespace TechZone.Web.Api
             });
         }
 
-        public HttpResponseMessage Put(HttpRequestMessage request, PostCategory postCategory)
+        [Route("update")]
+        public HttpResponseMessage Put(HttpRequestMessage request, PostCategoryViewModel postCategoryVm)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -63,7 +79,9 @@ namespace TechZone.Web.Api
                 }
                 else
                 {
-                    _postCategoryService.Update(postCategory);
+                    var postCategoryDb = _postCategoryService.GetById(postCategoryVm.ID);
+                    postCategoryDb.UpdatePostCategory(postCategoryVm);
+                    _postCategoryService.Update(postCategoryDb);
                     _postCategoryService.Save();
 
                     response = request.CreateResponse(HttpStatusCode.OK);
