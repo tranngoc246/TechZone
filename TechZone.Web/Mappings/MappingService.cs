@@ -21,7 +21,13 @@ namespace TechZone.Web.Mappings
         {
             var config = new MapperConfiguration(cfg =>
             {
+                cfg.CreateMap<Post, PostViewModel>();
                 cfg.CreateMap<PostCategory, PostCategoryViewModel>();
+                cfg.CreateMap<Tag, TagViewModel>();
+
+                cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
+                cfg.CreateMap<Product, ProductViewModel>();
+                cfg.CreateMap<ProductTag, ProductTagViewModel>();
             });
 
             Mapper = config.CreateMapper();

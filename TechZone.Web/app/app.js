@@ -1,7 +1,11 @@
 ﻿/// <reference path="../assets/admin/libs/angular/angular.js" />
 
 (function () {
-    angular.module('techzone', ['techzone.products', 'techzone.common']).config(config);
+    angular.module('techzone',
+        ['techzone.products',
+            'techzone.product_categories',
+            'techzone.common'])
+        .config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
 

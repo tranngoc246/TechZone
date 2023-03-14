@@ -32,8 +32,8 @@ namespace TechZone.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                var listCategory = _postCategoryService.GetAll();
-                var listPostCategoryVm = _mappingService.Mapper.Map<List<PostCategoryViewModel>>(listCategory);
+                var model = _postCategoryService.GetAll();
+                var listPostCategoryVm = _mappingService.Mapper.Map<List<PostCategoryViewModel>>(model);
 
                 var response = new HttpResponseMessage(HttpStatusCode.OK);
                 var content = new ObjectContent<List<PostCategoryViewModel>>(listPostCategoryVm, new JsonMediaTypeFormatter(), "application/json");
