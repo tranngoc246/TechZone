@@ -2,6 +2,10 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "angular": "1.8.3"
+    "angular": "1.8.3",
+    "bootstrap": "5.2.3",
+    "fontawesome": "6.3.0",
+    "jquery": "3.6.4",
+    "angular-ui-router": "~0.2.18"
   }
 }
