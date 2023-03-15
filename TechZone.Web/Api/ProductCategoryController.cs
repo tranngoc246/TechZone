@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -15,9 +17,9 @@ namespace TechZone.Web.Api
     [RoutePrefix("api/productcategory")]
     public class ProductCategoryController : ApiControllerBase
     {
-        private IProductCategoryService _productCategoryService;
+        private readonly IProductCategoryService _productCategoryService;
 
-        private IMappingService _mappingService;
+        private readonly IMappingService _mappingService;
         public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService, IMappingService mappingService)
             : base(errorService)
         {
@@ -26,19 +28,24 @@ namespace TechZone.Web.Api
         }
 
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        public IHttpActionResult GetAll(string keyword, int page = 0, int pageSize = 20)
         {
-            return CreateHttpResponse(request, () =>
+            int totalRow = 0;
+            var model = _productCategoryService.GetAll(keyword);
+
+            totalRow = model.Count();
+            var query = model.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
+
+            var responseData = _mappingService.Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(query);
+
+            var paginationSet = new PaginationSet<ProductCategoryViewModel>()
             {
-                var model = _productCategoryService.GetAll();
-                var listProductCategoryVm = _mappingService.Mapper.Map<List<ProductCategoryViewModel>>(model);
-
-                var response = new HttpResponseMessage(HttpStatusCode.OK);
-                var content = new ObjectContent<List<ProductCategoryViewModel>>(listProductCategoryVm, new JsonMediaTypeFormatter(), "application/json");
-                response.Content = content;
-
-                return response;
-            });
+                Items = responseData,
+                Page = page,
+                TotalCount = totalRow,
+                TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+            };
+            return Ok(paginationSet);
         }
     }
 }

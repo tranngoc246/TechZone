@@ -34,6 +34,18 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-md-6">
+                    <div class="form-inline">
+                        <div class="input-group">
+                            <input class="form-control form-control-sidebar" type="search" ng-model="keyword" placeholder="Từ khóa">
+                            <div class="input-group-append">
+                                <button class="btn btn-sidebar btn-primary" ng-click="search()">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
@@ -51,8 +63,10 @@
                                 <td class="text-center">{{item.ID}}</td>
                                 <td>{{item.Name}}</td>
                                 <td>{{item.CreatedDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
-                                <td class="text-center"><span ng-class="{'badge bg-danger':item.Status==false,'badge bg-success':item.Status==true}">
-                                    {{item.Status | statusFilter}}</span>
+                                <td class="text-center">
+                                    <span ng-class="{'badge bg-danger':item.Status==false,'badge bg-success':item.Status==true}">
+                                        {{item.Status | statusFilter}}
+                                    </span>
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></button>
@@ -60,20 +74,18 @@
                                 </td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">Tổng số bản ghi: {{totalCount}}</td>
+                            </tr>
+                        </tfoot>
                     </table>
-                    <div class="card-footer clearfix">
-                        <ul class="pagination pagination-sm m-0 float-right">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
+                    <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="getProductCagories(page)"></pager-directive>
                 </div>
             </div>
         </div>
         <!-- /.card-body -->
+               
     </div>
     <!-- /.card -->
 
