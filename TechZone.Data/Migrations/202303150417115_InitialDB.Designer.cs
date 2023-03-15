@@ -7,13 +7,13 @@ namespace TechZone.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class IntergrateAspNetIdentity : IMigrationMetadata
+    public sealed partial class InitialDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IntergrateAspNetIdentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "202303121417081_Intergrate-AspNetIdentity"; }
+            get { return "202303150417115_InitialDB"; }
         }
         
         string IMigrationMetadata.Source

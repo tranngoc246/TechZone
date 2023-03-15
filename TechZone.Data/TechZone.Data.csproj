@@ -70,17 +70,9 @@
     <Compile Include="Infracstructure\IUnitOfWork.cs" />
     <Compile Include="Infracstructure\RepositoryBase.cs" />
     <Compile Include="Infracstructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\202303110820353_InitialDB.cs" />
-    <Compile Include="Migrations\202303110820353_InitialDB.designer.cs">
-      <DependentUpon>202303110820353_InitialDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303120319339_AddErrorTable.cs" />
-    <Compile Include="Migrations\202303120319339_AddErrorTable.designer.cs">
-      <DependentUpon>202303120319339_AddErrorTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303121417081_Intergrate-AspNetIdentity.cs" />
-    <Compile Include="Migrations\202303121417081_Intergrate-AspNetIdentity.designer.cs">
-      <DependentUpon>202303121417081_Intergrate-AspNetIdentity.cs</DependentUpon>
+    <Compile Include="Migrations\202303150417115_InitialDB.cs" />
+    <Compile Include="Migrations\202303150417115_InitialDB.designer.cs">
+      <DependentUpon>202303150417115_InitialDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,16 +110,9 @@
       <Name>TechZone.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202303110820353_InitialDB.resx">
-      <DependentUpon>202303110820353_InitialDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303120319339_AddErrorTable.resx">
-      <DependentUpon>202303120319339_AddErrorTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303121417081_Intergrate-AspNetIdentity.resx">
-      <DependentUpon>202303121417081_Intergrate-AspNetIdentity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303150417115_InitialDB.resx">
+      <DependentUpon>202303150417115_InitialDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

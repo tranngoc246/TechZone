@@ -1,6 +1,10 @@
 ﻿namespace TechZone.Data.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using TechZone.Model.Models;
@@ -17,31 +21,32 @@
             CreateProductCategorySample(context);
             //  This method will be called after migrating to the latest version.
 
-            //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new TechZoneDbContext()));
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new TechZoneDbContext()));
 
-            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new TechZoneDbContext()));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new TechZoneDbContext()));
 
-            //var user = new ApplicationUser()
-            //{
-            //    UserName = "tedu",
-            //    Email = "tedu.international@gmail.com",
-            //    EmailConfirmed = true,
-            //    BirthDay = DateTime.Now,
-            //    FullName = "Technology Education"
+            var user = new ApplicationUser()
+            {
+                UserName = "tedu",
+                Email = "tedu.international@gmail.com",
+                EmailConfirmed = true,
+                BirthDay = DateTime.Now,
+                FullName = "Technology Education"
 
-            //};
+            };
 
-            //manager.Create(user, "123654$");
+            manager.Create(user, "123654$");
 
-            //if (!roleManager.Roles.Any())
-            //{
-            //    roleManager.Create(new IdentityRole { Name = "Admin" });
-            //    roleManager.Create(new IdentityRole { Name = "User" });
-            //}
+            if (!roleManager.Roles.Any())
+            {
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
 
-            //var adminUser = manager.FindByEmail("tedu.international@gmail.com");
+            var adminUser = manager.FindByEmail("tedu.international@gmail.com");
 
-            //manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
+
         }
 
         private void CreateProductCategorySample(TechZone.Data.TechZoneDbContext context)
@@ -58,6 +63,8 @@
                 context.ProductCategories.AddRange(listProductCategory);
                 context.SaveChanges();
             }
+
         }
     }
 }
+
