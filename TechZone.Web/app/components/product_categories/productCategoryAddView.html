@@ -1,0 +1,95 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới danh mục</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+                    <li class="breadcrumb-item"><a ui-sref="product_categories">Danh mục sản phẩm</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- general form elements -->
+    <div class="card card-primary col-sm-6" style="margin: auto; padding: 0px;">
+        <div class="card-header">
+            <h3 class="card-title">Thêm mới</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmAddProductCategory" role="form" ng-submit="AddProductCategory()">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="name">Tên danh mục</label>
+                    <input type="text" class="form-control" name="name" id="name" ng-model="productCategory.Name">
+                </div>
+                <div class="form-group">
+                    <label for="alias">Tiêu đề SEO</label>
+                    <input type="text" class="form-control" name="alias" id="alias" ng-model="productCategory.Alias">
+                </div>
+                <div class="form-group">
+                    <label for="description">Mô tả ngắn</label>
+                    <input type="text" class="form-control" name="description" id="description" ng-model="productCategory.Description">
+                </div>
+                <div class="form-group">
+                    <label for="parentId">Danh mục cha</label>
+                    <select name="parentId" id="parentId" class="form-control" ng-model="productCategory.ParentID" ng-options="option.ID as option.Name for option in parentCategories">
+                        <option value="">Danh mục gốc</option>
+                    </select>
+                    <input type="hidden" name="parentId" ng-model="productCategory.ParentID" />
+                </div>
+                <div class="form-group">
+                    <label for="displayOrder">Thứ tự</label>
+                    <input type="number" class="form-control" name="displayOrder" id="displayOrder" ng-model="productCategory.DisplayOrder">
+                </div>
+                <div class="form-group">
+                    <label for="image">Hình ảnh</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="image">
+                            <label class="custom-file-label" for="image">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text">Upload</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="metaKeyword">Meta Keyword</label>
+                    <input type="text" class="form-control" name="metaKeyword" id="metaKeyword" ng-model="productCategory.MetaKeyword">
+                </div>
+                <div class="form-group">
+                    <label for="metaDescription">Meta Description</label>
+                    <textarea class="form-control" name="metaDescription" id="metaDescription" ng-model="productCategory.MetaDescription"></textarea>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="status" id="status" ng-model="productCategory.Status" ng-checked="productCategory.Status">
+                    <label class="form-check-label" for="status">Kích hoạt</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="homeFlag" id="homeFlag" ng-model="productCategory.HomeFlag" ng-checked="productCategory.HomeFlag">
+                    <label class="form-check-label" for="homeFlag">Hiển thị trang chủ</label>
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer text-center">
+                <button class="btn btn-default" ui-sref="product_categories">Hủy</button>
+                <button type="submit" class="btn btn-success">Lưu</button>
+            </div>
+        </form>
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
