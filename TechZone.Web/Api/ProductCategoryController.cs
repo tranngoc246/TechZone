@@ -18,9 +18,10 @@ namespace TechZone.Web.Api
     [RoutePrefix("api/productcategory")]
     public class ProductCategoryController : ApiControllerBase
     {
+        #region Initialize
         private readonly IProductCategoryService _productCategoryService;
-
         private readonly IMappingService _mappingService;
+
         public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService, IMappingService mappingService)
             : base(errorService)
         {
@@ -28,12 +29,23 @@ namespace TechZone.Web.Api
             this._mappingService = mappingService;
         }
 
+        #endregion
+
         [Route("getallparents")]
         [HttpGet]
         public IHttpActionResult GetAllParents()
         {
             var model = _productCategoryService.GetAll();
             var responseData = _mappingService.Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
+            return Ok(responseData);
+        }
+
+        [Route("getbyid/{id:int}")]
+        [HttpGet]
+        public IHttpActionResult GetById(int id)
+        {
+            var model = _productCategoryService.GetById(id);
+            var responseData = _mappingService.Mapper.Map<ProductCategory, ProductCategoryViewModel>(model);
             return Ok(responseData);
         }
 
@@ -59,7 +71,6 @@ namespace TechZone.Web.Api
             return Ok(paginationSet);
         }
 
-
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
@@ -76,11 +87,41 @@ namespace TechZone.Web.Api
                 {
                     var newProductCategory = new ProductCategory();
                     newProductCategory.UpdateProductCategory(productCategoryVm);
-
+                    newProductCategory.CreatedDate = DateTime.Now;
                     _productCategoryService.Add(newProductCategory);
                     _productCategoryService.Save();
 
                     var responseData = _mappingService.Mapper.Map<ProductCategory, ProductCategoryViewModel>(newProductCategory);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+
+                return response;
+            });
+        }
+
+        [Route("update")]
+        [HttpPut]
+        [AllowAnonymous]
+        public HttpResponseMessage Update(HttpRequestMessage request, ProductCategoryViewModel productCategoryVm)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var dbProductCategory = _productCategoryService.GetById(productCategoryVm.ID);
+
+                    dbProductCategory.UpdateProductCategory(productCategoryVm);
+                    dbProductCategory.UpdatedDate = DateTime.Now;
+
+                    _productCategoryService.Update(dbProductCategory);
+                    _productCategoryService.Save();
+
+                    var responseData = _mappingService.Mapper.Map<ProductCategory, ProductCategoryViewModel>(dbProductCategory);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
 
