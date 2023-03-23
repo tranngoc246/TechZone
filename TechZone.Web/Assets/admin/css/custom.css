@@ -1,0 +1,4 @@
+﻿/* Định dạng đấu X trên hộp thoại confirm trong ngBootbox  */
+.modal-header {
+    display: none !important;
+}

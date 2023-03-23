@@ -1,3 +1,3 @@
 ﻿(function () {
-    angular.module('techzone.common', ['ui.router'])
+    angular.module('techzone.common', ['ui.router','ngBootbox'])
 })();

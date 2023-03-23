@@ -31,15 +31,20 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Tên danh mục</label>
-                    <input type="text" class="form-control" name="name" id="name" ng-model="productCategory.Name">
+                    <input type="text" class="form-control" ng-change="GetSeoTitle()" name="name" id="name" ng-maxlength="256" required ng-model="productCategory.Name">
+                    <span ng-show="frmAddProductCategory.name.$invalid" class="fs-6 fst-italic text-danger">Phải nhập tên danh mục</span>
+                    <span ng-show="frmAddProductCategory.name.$error.maxlength" class="fs-6 fst-italic text-danger">Tên danh mục chỉ được 256 ký tự</span>
                 </div>
                 <div class="form-group">
                     <label for="alias">Tiêu đề SEO</label>
-                    <input type="text" class="form-control" name="alias" id="alias" ng-model="productCategory.Alias">
+                    <input type="text" class="form-control" name="alias" id="alias" ng-maxlength="256" required ng-model="productCategory.Alias">
+                    <span ng-show="frmAddProductCategory.alias.$invalid" class="fs-6 fst-italic text-danger">Phải nhập tiêu đề SEO</span>
+                    <span ng-show="frmAddProductCategory.alias.$error.maxlength" class="fs-6 fst-italic text-danger">Tiêu đề SEO chỉ được 256 ký tự</span>
                 </div>
                 <div class="form-group">
                     <label for="description">Mô tả ngắn</label>
-                    <input type="text" class="form-control" name="description" id="description" ng-model="productCategory.Description">
+                    <input type="text" class="form-control" name="description" id="description" ng-maxlength="500" ng-model="productCategory.Description">
+                    <span ng-show="frmAddProductCategory.description.$error.maxlength" class="fs-6 fst-italic text-danger">Mô tả chỉ được 500 ký tự</span>
                 </div>
                 <div class="form-group">
                     <label for="parentId">Danh mục cha</label>
@@ -50,7 +55,8 @@
                 </div>
                 <div class="form-group">
                     <label for="displayOrder">Thứ tự</label>
-                    <input type="number" class="form-control" name="displayOrder" id="displayOrder" ng-model="productCategory.DisplayOrder">
+                    <input type="number" class="form-control" name="displayOrder" id="displayOrder" required ng-model="productCategory.DisplayOrder">
+                    <span ng-show="frmAddProductCategory.displayOrder.$invalid" class="fs-6 fst-italic text-danger">Phải nhập thứ tự</span>
                 </div>
                 <div class="form-group">
                     <label for="image">Hình ảnh</label>
@@ -85,7 +91,7 @@
 
             <div class="card-footer text-center">
                 <button class="btn btn-default" ui-sref="product_categories">Hủy</button>
-                <button type="submit" class="btn btn-success">Lưu</button>
+                <button type="submit" ng-disabled="frmAddProductCategory.$invalid" class="btn btn-success">Lưu</button>
             </div>
         </form>
     </div>
