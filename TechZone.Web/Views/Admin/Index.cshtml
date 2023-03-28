@@ -807,7 +807,10 @@
     <script src="~/Assets/admin/libs/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="~/Assets/admin/libs/toastr/toastr.js"></script>
     <script src="~/Assets/admin/libs/bootbox/bootbox.js"></script>
+    <script src="~/Assets/admin/libs/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/admin/libs/ckfinder/ckfinder.js"></script>
     <script src="~/Assets/admin/libs/ngBootbox/ngBootbox.js"></script>
+    <script src="~/Assets/admin/libs/ng.ckeditor/dist/ng-ckeditor.js"></script>
 
     <script src="~/app/shared/modules/techzone.common.js"></script>
     <script src="~/app/shared/filters/statusFilter.js"></script>
@@ -824,5 +827,43 @@
     <script src="~/app/components/products/productAddController.js"></script>
     <script src="~/app/components/products/productListController.js"></script>
     <script src="~/app/components/home/homeController.js"></script>
+
+    <!-- Khai báo directive sử dụng ckeditor -->
+    <script>
+        angular.module('techzone')
+            .directive('ckeditor', function () {
+                return {
+                    require: '?ngModel',
+                    link: function ($scope, elm, attr, ngModel) {
+                        // CKEditor options
+                        var ckOptions = {
+                            language: 'vi',
+                            height: '200px'
+                        };
+
+                        // CKEditor init
+                        var ckEditor = CKEDITOR.replace(elm[0], ckOptions);
+
+                        // Model -> View
+                        ckEditor.on('instanceReady', function () {
+                            if (ngModel) {
+                                ngModel.$render = function () {
+                                    ckEditor.setData(ngModel.$modelValue);
+                                };
+                            }
+                        });
+
+                        // View -> Model
+                        ckEditor.on('change', function () {
+                            if (ngModel) {
+                                $scope.$apply(function () {
+                                    ngModel.$setViewValue(ckEditor.getData());
+                                });
+                            }
+                        });
+                    }
+                };
+            });
+    </script>
 </body>
 </html>
