@@ -27,7 +27,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form class="form-horizontal" novalidate name="frmAddProduct" role="form" ng-submit="Addproduct()">
+        <form class="form-horizontal" novalidate name="frmAddProduct" role="form" ng-submit="AddProduct()">
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Tên sản phẩm</label>
@@ -69,13 +69,30 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Hình ảnh</label>
-                    <input type="text" class="form-control" id="image" name="image" ng-model="product.Image">
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="text" class="form-control" id="image" name="image" ng-model="product.Image">
+                        </div>
+                        <div class="input-group-append">
+                            <label class="btn btn-default" ng-click="ChooseImage()" for="image">Chọn ảnh</label>
+                        </div>
+                    </div>
                     <span ng-show="frmAddProduct.image.$error.maxlength" class="fs-6 fst-italic text-danger">Hình ảnh chỉ được 256 ký tự</span>
-                    <label class="btn btn-default" ng-click="ChooseImage()" for="image">Chọn ảnh</label>
+                </div>
+                <div class="form-group">
+                    <label for="image">Thêm ảnh</label>
+                    <ul class="list-inline">
+                        <li ng-repeat="img in moreImages" style="display: inline-block"><img ng-src="{{img}}" width="100"/></li>
+                    </ul>
+                    <button class="btn btn-default" type="button" ng-click="ChooseMoreImage()">Chọn ảnh</button>
                 </div>
                 <div class="form-group">
                     <label for="content">Mô tả sản phẩm</label>
                     <textarea class="form-control" name="content" id="content" ckeditor ng-model="product.Content"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <input type="text" class="form-control" name="tags" id="tags" ng-model="product.Tags">
                 </div>
                 <div class="form-group">
                     <label for="metaKeyword">Meta Keyword</label>
