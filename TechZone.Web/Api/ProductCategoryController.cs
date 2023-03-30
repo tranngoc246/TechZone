@@ -52,7 +52,7 @@ namespace TechZone.Web.Api
 
         [Route("getall")]
         [HttpGet]
-        public IHttpActionResult GetAll(string keyword, int page = 0, int pageSize = 20)
+        public IHttpActionResult GetAll(string keyword, int page, int pageSize = 20)
         {
             int totalRow = 0;
             var model = _productCategoryService.GetAll(keyword);

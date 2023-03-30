@@ -97,7 +97,7 @@
             checkSearch = true;
             getProducts(checkSearch);
         }
-        function getProducts(check, page) {
+        function getProducts(page, check) {
             page = page || 0;
             var config = {
                 params: {
