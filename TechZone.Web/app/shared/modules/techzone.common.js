@@ -1,3 +1,3 @@
 ﻿(function () {
-    angular.module('techzone.common', ['ui.router', 'ngBootbox', 'ng.ckeditor'])
+    angular.module('techzone.common', ['ui.router', 'ngBootbox', 'ngCkeditor'])
 })();

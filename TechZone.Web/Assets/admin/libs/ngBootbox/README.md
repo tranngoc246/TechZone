@@ -160,32 +160,6 @@ An options object can also be used to configure a custom dialog. A full list of 
             }
         };
     </script>
-    
-Scope passing to custom dialog
-------------------------------
-You can pass `$scope` to a custom dialog by specifying the `scope` parameter in options.
-
-    <script>
-        $scope.customDialogOptions = {
-            templateUrl: 'customModal.html',
-            scope: $scope,
-            title: 'The best title!',
-            buttons: {
-                warning: {
-                    label: "Cancel",
-                    className: "btn-warning",
-                    callback: function() { ... }
-                },
-                success: {
-                    label: "Ok",
-                    className: "btn-success",
-                    callback: function() { ... }
-                }
-            }
-        };
-    </script>
-    
-This allows your modal to interact with your controller's scope and bind data in a custom template.
 
 $ngBootbox service
 ==================
@@ -213,11 +187,7 @@ Returns a promise that is resolved when the dialog is closed.
         .then(function() {
             console.log('Alert closed');
         });
-        
-    $ngBootbox.alert({message:'Another important message!', title:'Ops!'})
-        .then(function() {
-            console.log('Alert closed');
-        });
+
 
 ### $ngBootbox.confirm(msg)
 
@@ -231,14 +201,7 @@ Returns a promise that is resolved when if confirmed and rejected if dismissed.
         }, function() {
             console.log('Confirm dismissed!');
         });
-        
-    $ngBootbox.confirm({message:"Another question?", title:'Please answer'})
-        .then(function() {
-            console.log('Confirmed!');
-        }, function() {
-            console.log('Confirm dismissed!');
-        });
-        
+
 ### $ngBootbox.prompt(msg)
 
 Returns a promise that is resolved when submitted and rejected if dismissed.
@@ -284,7 +247,6 @@ A full list of available options can be found in the official Bootbox.js [docume
 
     $scope.customDialogOptions = {
     templateUrl: 'custom-dialog.tpl.html',
-    scope: $scope,
          title: 'The title!',
          buttons: $scope.customDialogButtons
     };

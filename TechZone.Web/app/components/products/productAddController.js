@@ -7,7 +7,11 @@
         $scope.product = {
             CreatedDate: new Date(),
             Status: true
-        }        
+        }
+        $scope.ckeditorOptions = {
+            languague: 'vi',
+            height: '200px'
+        }
 
         $scope.AddProduct = AddProduct;
         $scope.GetSeoTitle = GetSeoTitle;
@@ -51,11 +55,9 @@
                 $scope.$apply(function () {
                     $scope.moreImages.push(fileUrl);
                 })
-
             }
             finder.popup();
         }
         loadProductCategory();
     }
-
 })(angular.module('techzone.products'));

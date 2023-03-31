@@ -7,11 +7,12 @@ if (typeof define === "function" && define.amd) {
 
 angular.module('ngBootbox', [])
   /* @ngInject */
-  .provider('$ngBootboxConfig', function () {
+  .provider('$ngBootboxConfig', function() {
+    
     var defaultLocale = '';
-
+    
     return {
-      setDefaultLocale: function (name) {
+      setDefaultLocale: function(name) {
         defaultLocale = name;
         window.bootbox.setLocale(name);
       },
@@ -21,18 +22,18 @@ angular.module('ngBootbox', [])
       removeLocale: function (name) {
         window.bootbox.removeLocale(name);
       },
-      $get: function () {
+      $get: function() {
         return ({
-          getDefaultLocale: function () {
+          getDefaultLocale: function() {
             return defaultLocale;
           }
         });
       }
     };
   })
-
+  
   /* @ngInject */
-  .directive('ngBootboxAlert', ["$ngBootbox", function ($ngBootbox) {
+  .directive('ngBootboxAlert', function ($ngBootbox) {
     return {
       restrict: 'A',
       scope: false,
@@ -43,9 +44,9 @@ angular.module('ngBootbox', [])
         });
       }
     };
-  }])
+  })
   /* @ngInject */
-  .directive('ngBootboxConfirm', ["$ngBootbox", function ($ngBootbox) {
+  .directive('ngBootboxConfirm', function ($ngBootbox) {
     return {
       restrict: 'A',
       scope: {
@@ -63,9 +64,9 @@ angular.module('ngBootbox', [])
         });
       }
     };
-  }])
+  })
   /* @ngInject */
-  .directive('ngBootboxPrompt', ["$ngBootbox", function ($ngBootbox) {
+  .directive('ngBootboxPrompt', function ($ngBootbox) {
     return {
       restrict: 'A',
       scope: {
@@ -87,9 +88,10 @@ angular.module('ngBootbox', [])
         });
       }
     };
-  }])
+  })
   /* @ngInject */
-  .directive('ngBootboxCustomDialog', ["$ngBootbox", function ($ngBootbox) {
+  .directive('ngBootboxCustomDialog', function ($ngBootbox) {
+  
     return {
       restrict: 'A',
       scope: {
@@ -102,7 +104,7 @@ angular.module('ngBootbox', [])
       link: function (scope, element, attr) {
         var options = {},
           templateUrl = attr.ngBootboxCustomDialogTemplate;
-
+  
         if (scope.options) {
           options = scope.options;
         }
@@ -115,52 +117,33 @@ angular.module('ngBootbox', [])
         } else {
           options.message = attr.ngBootboxCustomDialog;
         }
-
+  
         element.bind('click', function () {
           $ngBootbox.customDialog(options);
         });
       }
     };
-  }])
+  })
   /* @ngInject */
-  .factory('$ngBootbox', ["$q", "$templateCache", "$compile", "$rootScope", "$http", "$window", function ($q, $templateCache, $compile, $rootScope, $http, $window) {
+  .factory('$ngBootbox', function ($q, $templateCache, $compile, $rootScope, $http, $window) {
     return {
       alert: function (msg) {
         var deferred = $q.defer();
-        function _callback() {
+        $window.bootbox.alert(msg, function () {
           deferred.resolve();
-        }
-        if (typeof (msg) === "object")
-        {
-          $window.bootbox.alert(
-            angular.merge(msg, { callback: _callback })
-          );
-        }
-        else
-        {
-          $window.bootbox.alert(msg, _callback);
-        }
+        });
         return deferred.promise;
       },
       confirm: function (msg) {
         var deferred = $q.defer();
-        function _callback(result) {
+        $window.bootbox.confirm(msg, function (result) {
           if (result) {
             deferred.resolve();
           }
           else {
             deferred.reject();
           }
-        }
-        if (typeof (msg) === "object")
-        {
-          $window.bootbox.confirm(angular.merge(msg, { callback: _callback }));
-        }
-        else
-        {
-          $window.bootbox.confirm(msg, _callback);
-        }
-        
+        });
         return deferred.promise;
       },
       prompt: function (msg, value, selectAllOnFocus) {
@@ -169,7 +152,7 @@ angular.module('ngBootbox', [])
           title: msg,
           value: value || '',
           selectAllOnFocus: selectAllOnFocus || false,
-          callback: function (result) {
+          callback: function(result) {
             if (result !== null) {
               deferred.resolve(result);
             }
@@ -211,15 +194,14 @@ angular.module('ngBootbox', [])
         $window.bootbox.removeLocale(name);
       }
     };
-
+  
     function getTemplate(templateId) {
       var def = $q.defer();
-
+  
       var template = $templateCache.get(templateId);
       if (typeof template === "undefined") {
         $http.get(templateId)
-          .then(function (response) {
-            var data = response.data;
+          .success(function (data) {
             $templateCache.put(templateId, data);
             def.resolve(data);
           });
@@ -228,4 +210,4 @@ angular.module('ngBootbox', [])
       }
       return def.promise;
     }
-  }]);
+  });

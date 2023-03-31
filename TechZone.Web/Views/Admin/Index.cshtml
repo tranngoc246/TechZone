@@ -7,7 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap -->
-    <link href="~/Assets/admin/libs/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Assets/admin/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -29,14 +29,14 @@
 <body class="hold-transition skin-blue sidebar-mini" ng-app="techzone" ng-controller="rootController">
     <div ui-view></div>
     <!-- Site wrapper -->
-    <!-- jQuery 2.1.4 -->
-    <script src="~/Assets/admin/libs/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="~/Assets/admin/libs/bootstrap/js/bootstrap.js"></script>
+    <!-- jQuery-->
+    <script src="~/Assets/admin/libs/jquery/dist/jquery.js"></script>
+    <!-- Bootstrap-->
+    <script src="~/Assets/admin/libs/bootstrap/dist/js/bootstrap.js"></script>
     <!-- SlimScroll -->
     <script src="~/Assets/admin/libs/slimScroll/jquery.slimscroll.js"></script>
     <!-- FastClick -->
-    <script src="~/Assets/admin/libs/fastclick/fastclick.js"></script>
+    <script src="~/Assets/admin/libs/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
     <script src="~/Assets/admin/js/app.min.js"></script>
     <!-- Begin embed angularJS -->
@@ -47,7 +47,7 @@
     <script src="~/Assets/admin/libs/ckeditor/ckeditor.js"></script>
     <script src="~/Assets/admin/libs/ckfinder/ckfinder.js"></script>
     <script src="~/Assets/admin/libs/ngBootbox/ngBootbox.js"></script>
-    <script src="~/Assets/admin/libs/ng.ckeditor/dist/ng-ckeditor.js"></script>
+    <script src="~/Assets/admin/libs/ng-ckeditor/ng-ckeditor.js"></script>
 
     <script src="~/app/shared/modules/techzone.common.js"></script>
     <script src="~/app/shared/filters/statusFilter.js"></script>
@@ -68,42 +68,5 @@
     <script src="~/app/components/home/homeController.js"></script>
     <script src="~/app/components/login/loginController.js"></script>
 
-    <!-- Khai báo directive sử dụng ckeditor -->
-    <script>
-        angular.module('techzone')
-            .directive('ckeditor', function () {
-                return {
-                    require: '?ngModel',
-                    link: function ($scope, elm, attr, ngModel) {
-                        // CKEditor options
-                        var ckOptions = {
-                            language: 'vi',
-                            height: '200px'
-                        };
-
-                        // CKEditor init
-                        var ckEditor = CKEDITOR.replace(elm[0], ckOptions);
-
-                        // Model -> View
-                        ckEditor.on('instanceReady', function () {
-                            if (ngModel) {
-                                ngModel.$render = function () {
-                                    ckEditor.setData(ngModel.$modelValue);
-                                };
-                            }
-                        });
-
-                        // View -> Model
-                        ckEditor.on('change', function () {
-                            if (ngModel) {
-                                $scope.$apply(function () {
-                                    ngModel.$setViewValue(ckEditor.getData());
-                                });
-                            }
-                        });
-                    }
-                };
-            });
-    </script>
 </body>
 </html>

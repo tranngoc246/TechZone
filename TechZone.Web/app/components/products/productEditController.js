@@ -5,6 +5,10 @@
 
     function productEditController(apiService, $scope, notificationService, $state, commonService, $stateParams) {
         $scope.product = {};
+        $scope.ckeditorOptions = {
+            languague: 'vi',
+            height: '200px'
+        }
         $scope.UpdateProduct = UpdateProduct;
         $scope.moreImages = [];
         $scope.GetSeoTitle = GetSeoTitle;
