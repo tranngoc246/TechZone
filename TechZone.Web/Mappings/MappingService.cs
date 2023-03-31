@@ -28,6 +28,7 @@ namespace TechZone.Web.Mappings
                 cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
                 cfg.CreateMap<Product, ProductViewModel>();
                 cfg.CreateMap<ProductTag, ProductTagViewModel>();
+                cfg.CreateMap<Footer, FooterViewModel>();
             });
 
             Mapper = config.CreateMapper();

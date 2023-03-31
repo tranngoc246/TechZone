@@ -56,9 +56,10 @@ namespace TechZone.Web.App_Start
 
         public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
         {
-            public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+            public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
             {
                 context.Validated();
+                return Task.CompletedTask;
             }
 
             public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
