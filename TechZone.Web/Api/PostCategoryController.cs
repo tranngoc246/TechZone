@@ -14,6 +14,7 @@ using TechZone.Web.Models;
 namespace TechZone.Web.Api
 {
     [RoutePrefix("api/postcategory")]
+    [Authorize]
     public class PostCategoryController : ApiControllerBase
     {
         private IPostCategoryService _postCategoryService;
