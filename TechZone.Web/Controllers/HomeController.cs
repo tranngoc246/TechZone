@@ -14,19 +14,35 @@ namespace TechZone.Web.Controllers
     public class HomeController : Controller
     {
         IProductCategoryService _productCategoryService;
+        IProductService _productService;
         ICommonService _commonService;
         IMappingService _mappingService;
 
-        public HomeController(IProductCategoryService productCategoryService, ICommonService commonService, IMappingService mappingService)
+        public HomeController(IProductCategoryService productCategoryService,
+            IProductService productService,
+            ICommonService commonService, 
+            IMappingService mappingService)
         {
             _productCategoryService = productCategoryService;
             _commonService = commonService;
-            this._mappingService = mappingService;
+            _productService = productService;
+            _mappingService = mappingService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            var slideModel = _commonService.GetSlides();
+            var slideView = _mappingService.Mapper.Map<IEnumerable<Slide>, IEnumerable<SlideViewModel>>(slideModel);
+            var homeViewModel = new HomeViewModel();
+            homeViewModel.Slides = slideView;
+
+            var lastestProductModel = _productService.GetLastest(3);
+            var topSaleProductModel = _productService.GetHotProduct(3);
+            var lastestProductViewModel = _mappingService.Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastestProductModel);
+            var topSaleProductViewModel = _mappingService.Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(topSaleProductModel);
+            homeViewModel.LastestProducts = lastestProductViewModel;
+            homeViewModel.TopSaleProducts = topSaleProductViewModel;
+            return View(homeViewModel);
         }
 
         public ActionResult About()

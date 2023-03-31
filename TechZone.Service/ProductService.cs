@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using TechZone.Common;
 using TechZone.Data.Infracstructure;
 using TechZone.Data.Repositories;
 using TechZone.Model.Models;
-using TechZone.Common;
 
 namespace TechZone.Service
 {
@@ -18,6 +19,10 @@ namespace TechZone.Service
 
         IEnumerable<Product> GetAll(string keyword);
 
+        IEnumerable<Product> GetLastest(int top);
+
+        IEnumerable<Product> GetHotProduct(int top);
+
         Product GetById(int id);
 
         void Save();
@@ -28,6 +33,7 @@ namespace TechZone.Service
         private IProductRepository _productRepository;
         private ITagRepository _tagRepository;
         private IProductTagRepository _productTagRepository;
+
         private IUnitOfWork _unitOfWork;
 
         public ProductService(IProductRepository productRepository, IProductTagRepository productTagRepository,
@@ -38,7 +44,6 @@ namespace TechZone.Service
             this._tagRepository = _tagRepository;
             this._unitOfWork = unitOfWork;
         }
-
 
         public Product Add(Product Product)
         {
@@ -54,7 +59,7 @@ namespace TechZone.Service
                     {
                         Tag tag = new Tag();
                         tag.ID = tagId;
-                        tag.Name = tags[i].Trim();
+                        tag.Name = tags[i];
                         tag.Type = CommonConstants.ProductTag;
                         _tagRepository.Add(tag);
                     }
@@ -119,8 +124,17 @@ namespace TechZone.Service
                     productTag.TagID = tagId;
                     _productTagRepository.Add(productTag);
                 }
-
             }
+        }
+
+        public IEnumerable<Product> GetLastest(int top)
+        {
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
+        }
+
+        public IEnumerable<Product> GetHotProduct(int top)
+        {
+            return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
         }
     }
 }
