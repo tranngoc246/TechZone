@@ -342,8 +342,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4179,6 +4183,10 @@
     <Content Include="Assets\client\css\etalage.css" />
     <Content Include="Assets\client\css\form.css" />
     <Content Include="Assets\client\css\style.css" />
+    <Content Include="Assets\client\font-awesome-4.6.3\css\font-awesome.css" />
+    <Content Include="Assets\client\font-awesome-4.6.3\css\font-awesome.min.css" />
+    <Content Include="Assets\client\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\client\font-awesome-4.6.3\HELP-US-OUT.txt" />
     <Content Include="Assets\client\images\a-star.png" />
     <Content Include="Assets\client\images\arrow1.png" />
     <Content Include="Assets\client\images\arrow2.png" />
@@ -4256,6 +4264,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
     <Folder Include="UploadedFiles\" />
+    <Folder Include="Views\About\" />
+    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".bowerrc" />
@@ -4472,6 +4482,41 @@
     <Content Include="Assets\admin\libs\toastr\toastr.less" />
     <Content Include="Assets\admin\libs\toastr\toastr.scss" />
     <Content Include="Assets\client\images\Thumbs.db" />
+    <Content Include="ConnectionStrings.config" />
+    <Content Include="AppSettings.config" />
+    <Content Include="Assets\client\font-awesome-4.6.3\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\client\font-awesome-4.6.3\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\client\font-awesome-4.6.3\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\client\font-awesome-4.6.3\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\client\font-awesome-4.6.3\fonts\FontAwesome.otf" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\animated.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\bordered-pulled.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\core.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\fixed-width.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\font-awesome.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\icons.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\larger.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\list.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\mixins.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\path.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\rotated-flipped.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\screen-reader.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\stacked.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\less\variables.less" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\font-awesome.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_animated.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_bordered-pulled.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_core.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_fixed-width.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_icons.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_larger.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_list.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_mixins.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_path.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_rotated-flipped.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_screen-reader.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_stacked.scss" />
+    <Content Include="Assets\client\font-awesome-4.6.3\scss\_variables.scss" />
     <None Include="packages.config" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\Layouts.cshtml" />
@@ -4479,6 +4524,8 @@
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Category.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Product\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TechZone.Common\TechZone.Common.csproj">
