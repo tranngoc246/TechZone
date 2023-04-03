@@ -20,9 +20,9 @@ namespace TechZone.Web
          namespaces: new string[] { "TechZone.Web.Controllers" }
      );
             routes.MapRoute(
-           name: "About",
-           url: "gioi-thieu.html",
-           defaults: new { controller = "About", action = "Index", id = UrlParameter.Optional },
+            name: "Page",
+           url: "trang/{alias}.html",
+           defaults: new { controller = "Page", action = "Index", alias = UrlParameter.Optional },
            namespaces: new string[] { "TechZone.Web.Controllers" }
        );
             routes.MapRoute(
