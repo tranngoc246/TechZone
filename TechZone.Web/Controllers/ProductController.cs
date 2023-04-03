@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using TechZone.Common;
 using TechZone.Model.Models;
 using TechZone.Service;
@@ -28,7 +29,14 @@ namespace TechZone.Web.Controllers
 
         public ActionResult Detail(int productId)
         {
-            return View();
+            var productModel = _productService.GetById(productId);
+            var viewModel = _mappingService.Mapper.Map<Product, ProductViewModel>(productModel);
+            var relatedProduct = _productService.GetReatedProducts(productId, 6);
+            ViewBag.RelatedProducts = _mappingService.Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProduct);
+
+            List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(viewModel.MoreImages);
+            ViewBag.MoreImages = listImages;
+            return View(viewModel);
         }
 
         public ActionResult Category(int id, int page = 1, string sort = "")
