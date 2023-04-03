@@ -36,6 +36,8 @@ namespace TechZone.Web.Controllers
 
             List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(viewModel.MoreImages);
             ViewBag.MoreImages = listImages;
+
+            ViewBag.Tags = _mappingService.Mapper.Map<IEnumerable<Tag>, IEnumerable<TagViewModel>>(_productService.GetListTagByProductId(productId));
             return View(viewModel);
         }
 
@@ -61,7 +63,6 @@ namespace TechZone.Web.Controllers
             return View(paginationSet);
         }
 
-
         public ActionResult Search(string keyword, int page = 1, string sort = "")
         {
             int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
@@ -82,6 +83,28 @@ namespace TechZone.Web.Controllers
 
             return View(paginationSet);
         }
+
+        public ActionResult ListByTag(string tagId, int page = 1)
+        {
+            int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
+            int totalRow = 0;
+            var productModel = _productService.GetListProductByTag(tagId, page, pageSize, out totalRow);
+            var productViewModel = _mappingService.Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(productModel);
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+
+            ViewBag.Tag = _mappingService.Mapper.Map<Tag, TagViewModel>(_productService.GetTag(tagId));
+            var paginationSet = new PaginationSet<ProductViewModel>()
+            {
+                Items = productViewModel,
+                MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                Page = page,
+                TotalCount = totalRow,
+                TotalPages = totalPage
+            };
+
+            return View(paginationSet);
+        }
+
         public JsonResult GetListProductByName(string keyword)
         {
             var model = _productService.GetListProductByName(keyword);

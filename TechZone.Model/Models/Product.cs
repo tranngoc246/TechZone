@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
 using TechZone.Model.Abstract;
 
 namespace TechZone.Model.Models
@@ -28,6 +28,7 @@ namespace TechZone.Model.Models
 
         [Column(TypeName = "xml")]
         public string MoreImages { set; get; }
+
         public decimal Price { set; get; }
 
         public decimal? PromotionPrice { set; get; }
@@ -46,5 +47,7 @@ namespace TechZone.Model.Models
 
         [ForeignKey("CategoryID")]
         public virtual ProductCategory ProductCategory { set; get; }
+
+        public virtual IEnumerable<ProductTag> ProductTags { set; get; }
     }
 }
