@@ -5,3 +5,8 @@
 .taglist li {
     float: left;
 }
+
+.error{
+    color: red;
+    font-style: italic;
+}

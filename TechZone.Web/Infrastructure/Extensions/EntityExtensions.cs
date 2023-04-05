@@ -1,4 +1,5 @@
-﻿using TechZone.Model.Models;
+﻿using System;
+using TechZone.Model.Models;
 using TechZone.Web.Models;
 
 namespace TechZone.Web.Infrastructure.Extensions
@@ -92,6 +93,15 @@ namespace TechZone.Web.Infrastructure.Extensions
             product.Status = productVm.Status;
             product.Tags = productVm.Tags;
             product.Quantity = productVm.Quantity;
+        }
+
+        public static void UpdateFeedback(this Feedback feedback, FeedbackViewModel feedbackVm)
+        {
+            feedback.Name = feedbackVm.Name;
+            feedback.Email = feedbackVm.Email;
+            feedback.Message = feedbackVm.Message;
+            feedback.Status = feedbackVm.Status;
+            feedback.CreatedDate = DateTime.Now;
         }
     }
 }

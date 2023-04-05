@@ -1,4 +1,5 @@
-﻿@model TechZone.Web.Models.ContactDetailViewModel
+﻿@model TechZone.Web.Models.FeedbackViewModel
+@using BotDetect.Web.Mvc;
 @{
     ViewBag.Title = "Liên hệ";
     Layout = "~/Views/Shared/Layouts.cshtml";
@@ -12,23 +13,35 @@
     #map {
         height: 300px;
     }
+    #btn {
+        padding: 10px 25px;
+        color: #fff;
+        background: #F97E76;
+        font-size: 1.1em;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        text-transform: uppercase;
+        transition: 0.5s all;
+        float: right;
+    }
 </style>
-
-<input type="hidden" id="hidAddress" value="<b>@Model.Name</b><br />Điện thoại:@Model.Phone <br>Địa chỉ: @Model.Address <br><a target='_blank' href='https://maps.google.com/maps?ll=@Model.Lat,@Model.Lng&amp;z=18&amp;t=m&amp;hl=vi&amp;gl=US&amp;mapclient=apiv3&amp;cid=14317441038146502191'> <span style='color:blue'>Xem trên Google Maps</span> </a>" />
- 
-<input type="hidden" id="hidLat" value="@Model.Lat" />
-<input type="hidden" id="hidLng" value="@Model.Lng" />
-<input type="hidden" id="hidName" value="@Model.Name" />
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+<input type="hidden" id="hidAddress" value="<b>@Model.ContactDetail.Name</b><br />Điện thoại:@Model.ContactDetail.Phone <br>Địa chỉ: @Model.ContactDetail.Address <br><a target='_blank' href='https://maps.google.com/maps?ll=@Model.ContactDetail.Lat,@Model.ContactDetail.Lng&amp;z=18&amp;t=m&amp;hl=vi&amp;gl=US&amp;mapclient=apiv3&amp;cid=14317441038146502191'> <span style='color:blue'>Xem trên Google Maps</span> </a>" />
+<input type="hidden" id="hidLat" value="@Model.ContactDetail.Lat" />
+<input type="hidden" id="hidLng" value="@Model.ContactDetail.Lng" />
+<input type="hidden" id="hidName" value="@Model.ContactDetail.Name" />
 <div class="main">
     <div class="reservation_top">
         <div class="contact_right">
             <h3>Thông tin liên hệ</h3>
             <address class="address">
-                <p>@Model.Address</p>
+                <p>@Model.ContactDetail.Address</p>
                 <dl>
                     <dt></dt>
-                    <dd>Điện thoại:<span>@Model.Phone</span></dd>
-                    <dd>E-mail:&nbsp;<a href="mailto:@(Model.Email)">@(Model.Email)</a></dd>
+                    <dd>Điện thoại:&nbsp;<span>@Model.ContactDetail.Phone</span></dd>
+                    <dd>E-mail:&nbsp;<a href="mailto:@(Model.ContactDetail.Email)">@(Model.ContactDetail.Email)</a></dd>
                 </dl>
             </address>
             <div class="clearfix"></div>
@@ -37,15 +50,35 @@
     </div>
     <div class="reservation_top">
         <div class="contact_right">
-            <h3>Contact Form</h3>
+            <h3>Gửi thông tin liên hệ</h3>
             <div class="contact-form">
-                <form method="post" action="contact-post.html">
-                    <input type="text" class="textbox" value="Name" onfocus="this.value='';" onblur="if(this.value=='')this.value='Name';">
-                    <input type="text" class="textbox" value="Email" onfocus="this.value='';" onblur="if(this.value=='')this.value='Email';">
-                    <textarea onfocus="this.value='';" onblur="if(this.value=='')this.value='Message';">Message</textarea>
-                    <input type="submit" value="Send">
-                    <div class="clearfix"></div>
-                </form>
+                @using (Html.BeginForm("SendFeedback", "Contact", FormMethod.Post))
+                {
+                    if (ViewData["SuccessMsg"] != null)
+                    {
+
+                        <div class="alert alert-success" role="alert">
+                            Cảm ơn bạn đã gửi phản hồi!
+                            <br />Chúng tôi sẽ liên hệ lại sớm nhất có thể.
+                        </div>
+                        <button id="btn">Gửi lại</button>
+                    }
+                    else
+                    {
+                        @Html.ValidationSummary(false, "", new { @class = "error" });
+                        <lable>Tên người dùng:</lable>@Html.TextBoxFor(model => model.Name, new { @class = "textbox" });
+                        <lable>Email:</lable>@Html.TextBoxFor(model => model.Email, new { @class = "textbox" });
+                        <lable>Nội dung:</lable>@Html.TextAreaFor(model => model.Message);
+
+                        MvcCaptcha contactCaptcha = new MvcCaptcha("contactCaptcha");
+                        <lable>Mã xác nhận:</lable>
+                        @Html.Captcha(contactCaptcha)
+                        @Html.TextBox("CaptchaCode")
+
+                        <input type="submit" value="Gửi đi">
+                    }
+                    <div class="clearfix"> </div>
+                }
             </div>
         </div>
     </div>
