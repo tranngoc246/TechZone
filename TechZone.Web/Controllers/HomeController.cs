@@ -29,7 +29,7 @@ namespace TechZone.Web.Controllers
             _mappingService = mappingService;
         }
 
-        [OutputCache(Duration = 60)]
+        [OutputCache(Duration = 60, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             var slideModel = _commonService.GetSlides();

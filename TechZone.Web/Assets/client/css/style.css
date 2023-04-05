@@ -63,7 +63,7 @@ ul.support li a {
 }
 .header-bottom-left{
 	float: left;
-	width: 55%;
+	width: 53%;
 }
 .logo{
 	float:left;
@@ -72,12 +72,12 @@ ul.support li a {
 }
 .header-bottom-right{
 	float: right;
-	width: 37%;
+	width: 46%;
 	text-align: center;
 	padding-top:1.7em;
 }
 .account,.cart{
-	float:left;
+	float:right;
 	width:40%;
 }
 .cart{
@@ -102,10 +102,10 @@ ul.support li a {
 	display: inline-block;
 	vertical-align: middle;
 }
-ul.login{
-	float:left;
-	width:36%;
-	margin:0;
+ul.login {
+	float: right;
+	width: 36%;
+	margin: 0;
 }
 ul.login li{
 	display:inline-block;

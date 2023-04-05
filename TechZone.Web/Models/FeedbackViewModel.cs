@@ -11,10 +11,11 @@ namespace TechZone.Web.Models
         public int ID { set; get; }
 
         [MaxLength(250, ErrorMessage = "Tên không được quá 250 ký tự")]
-        [Required(ErrorMessage = "Tên phải nhập")]
+        [Required(ErrorMessage = "Tên không được để trống")]
         public string Name { set; get; }
 
         [MaxLength(250, ErrorMessage = "Email không được quá 250 ký tự")]
+        [Required(ErrorMessage = "Email không được để trống")]
         public string Email { set; get; }
 
         [MaxLength(500, ErrorMessage = "Tin nhắn không được quá 500 ký tự")]
