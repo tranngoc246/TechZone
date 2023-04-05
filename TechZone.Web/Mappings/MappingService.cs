@@ -31,6 +31,7 @@ namespace TechZone.Web.Mappings
                 cfg.CreateMap<Footer, FooterViewModel>();
                 cfg.CreateMap<Slide, SlideViewModel>();
                 cfg.CreateMap<Page, PageViewModel>();
+                cfg.CreateMap<ContactDetail, ContactDetailViewModel>();
             });
 
             Mapper = config.CreateMapper();

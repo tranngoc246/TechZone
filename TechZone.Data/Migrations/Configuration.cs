@@ -20,6 +20,8 @@
             CreateProductCategorySample(context);
             CreateSlide(context);
             CreatePage(context);
+
+            CreateContactDetail(context);
             //  This method will be called after migrating to the latest version.
         }
 
@@ -122,7 +124,6 @@
                         Alias = "gioi-thieu",
                         Content = @"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium ",
                         Status = true
-
                     };
                     context.Pages.Add(page);
                     context.SaveChanges();
@@ -138,7 +139,41 @@
                         }
                     }
                 }
+            }
+        }
 
+        private void CreateContactDetail(TechZoneDbContext context)
+        {
+            if (context.ContactDetails.Count() == 0)
+            {
+                try
+                {
+                    var contactDetail = new TechZone.Model.Models.ContactDetail()
+                    {
+                        Name = "Shop đồ công nghệ TECHZONE",
+                        Address = "Ngõ 46 Xuân Phương",
+                        Email = "techzone@gmail.com",
+                        Lat = 21.0538776,
+                        Lng = 105.735033,
+                        Phone = "095423233",
+                        Website = "http://techzone.com.vn",
+                        Other = "",
+                        Status = true
+                    };
+                    context.ContactDetails.Add(contactDetail);
+                    context.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var eve in ex.EntityValidationErrors)
+                    {
+                        Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation error.");
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Trace.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                        }
+                    }
+                }
             }
         }
     }

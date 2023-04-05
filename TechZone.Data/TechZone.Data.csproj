@@ -90,8 +90,13 @@
     <Compile Include="Migrations\202304030412119_AddForeignkey.designer.cs">
       <DependentUpon>202304030412119_AddForeignkey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304030927056_AddContactDetail.cs" />
+    <Compile Include="Migrations\202304030927056_AddContactDetail.designer.cs">
+      <DependentUpon>202304030927056_AddContactDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ContactDetailRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\MenuGroupRepository.cs" />
@@ -141,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304030412119_AddForeignkey.resx">
       <DependentUpon>202304030412119_AddForeignkey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304030927056_AddContactDetail.resx">
+      <DependentUpon>202304030927056_AddContactDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
