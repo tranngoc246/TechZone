@@ -16,6 +16,26 @@
 
         $scope.selectAll = selectAll;
 
+        $scope.deleteMultiple = deleteMultiple;
+
+        function deleteMultiple() {
+            var listId = [];
+            $.each($scope.selected, function (i, item) {
+                listId.push(item.ID);
+            });
+            var config = {
+                params: {
+                    checkedProducts: JSON.stringify(listId)
+                }
+            }
+            apiService.del('api/product/deletemulti', config, function (result) {
+                notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi.');
+                search();
+            }, function (error) {
+                notificationService.displayError('Xóa không thành công');
+            });
+        }
+
         $scope.isAll = false;
         function selectAll() {
             if ($scope.isAll === false) {
@@ -31,26 +51,6 @@
             }
         }
 
-        $scope.deleteMultiple = deleteMultiple;
-
-        function deleteMultiple() {
-            var listId = [];
-            $.each($scope.selected, function (i, item) {
-                listId.push(item.ID);
-            });
-            var config = {
-                params: {
-                    checkedProducts: JSON.stringify(listId)
-                }
-            }
-            apiService.del('api/product/deletemulti', config, function (result) {
-                notificationService.displaySuccess('Xóa thành công ' + $scope.selected.length + ' bản ghi.');
-                getProducts(checkSearch);
-            }, function (error) {
-                notificationService.displayError('Xóa không thành công');
-            });
-        }
-
         $scope.$watch("products", function (n, o) {
             var checked = $filter("filter")(n, { checked: true });
             if (checked.length) {
@@ -62,42 +62,26 @@
         }, true);
 
         function deleteProduct(id) {
-            $ngBootbox.confirm({
-                size: 'small',
-                title: '<b>Xác nhận xóa</b>',
-                message: 'Bạn có chắc chắn muốn xóa không?',
-                buttons: {
-                    confirm: {
-                        label: 'Xóa',
-                        className: 'btn-danger btn-sm'
-                    },
-                    cancel: {
-                        label: 'Hủy',
-                        className: 'btn-secondary btn-sm'
-                    }
-                }
-            }).then(function () {
+            $ngBootbox.confirm('Bạn có chắc muốn xóa?').then(function () {
                 var config = {
                     params: {
                         id: id
                     }
                 }
                 apiService.del('api/product/delete', config, function () {
-                    notificationService.displaySuccess('Xóa thành công!');
-                    $scope.getProducts(checkSearch);
+                    notificationService.displaySuccess('Xóa thành công');
+                    search();
                 }, function () {
-                    notificationService.displayError('Xóa không thành công!');
-                });
+                    notificationService.displayError('Xóa không thành công');
+                })
             });
         }
 
-        var checkSearch = false;
-
         function search() {
-            checkSearch = true;
-            getProducts(checkSearch);
+            getProducts();
         }
-        function getProducts(page, check) {
+
+        function getProducts(page) {
             page = page || 0;
             var config = {
                 params: {
@@ -107,13 +91,8 @@
                 }
             }
             apiService.get('/api/product/getall', config, function (result) {
-                if (check) {
-                    if (result.data.TotalCount == 0) {
-                        notificationService.displayWarning('Không có bản ghi nào được tìm thấy.');
-                    }
-                    else {
-                        notificationService.displaySuccess('Đã tìm thấy ' + result.data.TotalCount + ' bản ghi.');
-                    }
+                if (result.data.TotalCount == 0) {
+                    notificationService.displayWarning('Không có bản ghi nào được tìm thấy.');
                 }
                 $scope.products = result.data.Items;
                 $scope.page = result.data.Page;
@@ -124,6 +103,6 @@
             });
         }
 
-        $scope.getProducts(checkSearch);
+        $scope.getProducts();
     }
 })(angular.module('techzone.products'));

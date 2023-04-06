@@ -3,7 +3,10 @@
 (function () {
     angular.module('techzone',
         ['techzone.products',
+            'techzone.application_groups',
             'techzone.product_categories',
+            'techzone.application_roles',
+            'techzone.application_users',
             'techzone.common'])
         .config(config)
         .config(configAuthentication);
