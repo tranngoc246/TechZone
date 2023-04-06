@@ -40,6 +40,13 @@ namespace TechZone.Model.Models
         public string PaymentStatus { set; get; }
         public bool Status { set; get; }
 
+        [StringLength(128)]
+        [Column(TypeName ="nvarchar")]
+        public string CustomerID { set; get; }
+
+        [ForeignKey("CustomerID")]
+        public virtual ApplicationUser User { get; set; }
+
         public virtual IEnumerable<OrderDetail> OrderDetails { set; get; }
     }
 }

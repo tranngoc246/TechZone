@@ -47,12 +47,12 @@
     </div>
     <div class="products">
         <h5 class="latest-product">Sản phẩm mới nhất</h5>
-        <a class="view-all" href="san-pham.html">Xem tất cả<span> </span></a>
+        <a class="view-all" href="san-pham.html/">Xem tất cả<span> </span></a>
     </div>
     <div class="product-left">
         @foreach (var product in Model.LastestProducts)
         {
-            var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+            var url = "/" + product.Alias + ".p-" + product.ID + ".html/";
             <div class="col-md-4 chain-grid grid-top-chain">
                 <a href="@url"><img class="img-responsive chain" src="@product.Image" /></a>
                 <span class="star"> </span>
@@ -78,7 +78,7 @@
                                 <label for="rating-input-1-1" class="rating-star"> </label>
                             </span>
                         </div>
-                        <a class="now-get get-cart" href="#">Mua hàng</a>
+                        <a class="now-get get-cart" href="@url">Mua hàng</a>
                         <div class="clearfix"> </div>
                     </div>
                 </div>
@@ -89,12 +89,12 @@
     </div>
     <div class="products">
         <h5 class="latest-product">Sản phẩm bán chạy</h5>
-        <a class="view-all" href="san-pham-ban-chay.html">Xem tất cả<span> </span></a>
+        <a class="view-all" href="san-pham-ban-chay.html/">Xem tất cả<span> </span></a>
     </div>
     <div class="product-left">
         @foreach (var product in Model.TopSaleProducts)
         {
-            var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+            var url = "/" + product.Alias + ".p-" + product.ID + ".html/";
             <div class="col-md-4 chain-grid grid-top-chain">
                 <a href="@url"><img class="img-responsive chain" src="@product.Image" /></a>
                 <span class="star"> </span>
