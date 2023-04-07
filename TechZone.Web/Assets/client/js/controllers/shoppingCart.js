@@ -18,14 +18,14 @@
                 }
             },
             messages: {
-                name: "Yêu cầu nhập tên",
-                address: "Yêu cầu nhập địa chỉ",
+                name: "Tên chưa nhập",
+                address: "Địa chỉ chưa nhập",
                 email: {
-                    required: "Bạn cần nhập email",
+                    required: "Email chưa nhập",
                     email: "Định dạng email chưa đúng"
                 },
                 phone: {
-                    required: "Số điện thoại được yêu cầu",
+                    required: "Số điện thoại chưa nhập",
                     number: "Số điện thoại phải là số."
                 }
             }
@@ -53,7 +53,7 @@
 
             cart.updateAll();
         });
-        $('#btnContinue').off('click').on('click', function (e) {
+        $('.btnContinue').off('click').on('click', function (e) {
             e.preventDefault();
             window.location.href = "/";
         });
@@ -125,8 +125,8 @@
                     $('#divCheckout').hide();
                     cart.deleteAll();
                     setTimeout(function () {
-                        $('#cartContent').html('Cảm ơn bạn đã đặt hàng thành công. Chúng tôi sẽ liên hệ sớm nhất.');
-                    }, 2000);
+                        $('#cartContent').html('Cảm ơn bạn đã đặt hàng thành công. Chúng tôi sẽ liên hệ sớm nhất.<br/><br/><button class="btn btn-success btnContinue">Tiếp tục mua hàng</button>');
+                    }, 500);
 
                 }
             }
@@ -151,7 +151,6 @@
             success: function (response) {
                 if (response.status) {
                     cart.loadData();
-
                 }
             }
         });
@@ -219,7 +218,7 @@
                     $('#cartBody').html(html);
 
                     if (html == '') {
-                        $('#cartContent').html('Không có sản phẩm nào trong giỏ hàng.');
+                        $('#cartContent').html('Không có sản phẩm nào trong giỏ hàng.<br/><br/><button class="btn btn-success btnContinue">Mua hàng</button>');
                     }
                     $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0'));
                     cart.registerEvent();

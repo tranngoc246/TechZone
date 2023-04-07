@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechZone.Data.Infracstructure;
 using TechZone.Data.Repositories;
 using TechZone.Model.Models;
@@ -13,11 +10,12 @@ namespace TechZone.Service
     {
         bool Create(Order order, List<OrderDetail> orderDetails);
     }
+
     public class OrderService : IOrderService
     {
-        IOrderRepository _orderRepository;
-        IOrderDetailRepository _orderDetailRepository;
-        IUnitOfWork _unitOfWork;
+        private IOrderRepository _orderRepository;
+        private IOrderDetailRepository _orderDetailRepository;
+        private IUnitOfWork _unitOfWork;
 
         public OrderService(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository, IUnitOfWork unitOfWork)
         {
@@ -25,6 +23,7 @@ namespace TechZone.Service
             this._orderDetailRepository = orderDetailRepository;
             this._unitOfWork = unitOfWork;
         }
+
         public bool Create(Order order, List<OrderDetail> orderDetails)
         {
             try
@@ -37,7 +36,6 @@ namespace TechZone.Service
                     orderDetail.OrderID = order.ID;
                     _orderDetailRepository.Add(orderDetail);
                 }
-                _unitOfWork.Commit();
                 return true;
             }
             catch (Exception)
