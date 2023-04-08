@@ -20,42 +20,78 @@
 
         protected override void Seed(TechZone.Data.TechZoneDbContext context)
         {
-            //CreateUser(context);
+            CreateUser(context);
             CreateProductCategorySample(context);
             CreateSlide(context);
             CreatePage(context);
 
             CreateContactDetail(context);
+
+            CreateConfigTitle(context);
             //  This method will be called after migrating to the latest version.
+        }
+
+        private void CreateConfigTitle(TechZoneDbContext context)
+        {
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeTitle"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeTitle",
+                    ValueString = "Trang chủ TeduShop",
+
+                });
+            }
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeMetaKeyword"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeMetaKeyword",
+                    ValueString = "Trang chủ TeduShop",
+
+                });
+            }
+            if (!context.SystemConfigs.Any(x => x.Code == "HomeMetaDescription"))
+            {
+                context.SystemConfigs.Add(new SystemConfig()
+                {
+                    Code = "HomeMetaDescription",
+                    ValueString = "Trang chủ TeduShop",
+
+                });
+            }
         }
 
         private void CreateUser(TechZoneDbContext context)
         {
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new TechZoneDbContext()));
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new TechZoneDbContext()));
-
-            var user = new ApplicationUser()
+            if (!context.Users.Any())
             {
-                UserName = "techzone",
-                Email = "techzone@gmail.com",
-                EmailConfirmed = true,
-                BirthDay = DateTime.Now,
-                FullName = "Trần Văn Ngọc"
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new TechZoneDbContext()));
 
-            };
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new TechZoneDbContext()));
 
-            manager.Create(user, "123654$");
+                var user = new ApplicationUser()
+                {
+                    UserName = "admin",
+                    Email = "techzone@gmail.com",
+                    EmailConfirmed = true,
+                    BirthDay = DateTime.Now,
+                    FullName = "Admin"
 
-            if (!roleManager.Roles.Any())
-            {
-                roleManager.Create(new IdentityRole { Name = "Admin" });
-                roleManager.Create(new IdentityRole { Name = "User" });
+                };
+
+                manager.Create(user, "123456");
+
+                if (!roleManager.Roles.Any())
+                {
+                    roleManager.Create(new IdentityRole { Name = "Admin" });
+                    roleManager.Create(new IdentityRole { Name = "User" });
+                }
+
+                var adminUser = manager.FindByEmail("tedu.international@gmail.com");
+
+                manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
             }
-
-            var adminUser = manager.FindByEmail("tedu.international@gmail.com");
-
-            manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
         }
 
         private void CreateProductCategorySample(TechZone.Data.TechZoneDbContext context)

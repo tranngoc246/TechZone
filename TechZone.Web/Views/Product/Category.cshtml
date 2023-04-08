@@ -1,9 +1,12 @@
 ﻿@model TechZone.Web.Infrastructure.Core.PaginationSet<TechZone.Web.Models.ProductViewModel>
 
 @{
-    ViewBag.Title = "Category";
-    Layout = "~/Views/Shared/Layouts.cshtml";
     var category = (TechZone.Web.Models.ProductCategoryViewModel)ViewBag.Category;
+    var pageIndex = Model.Page;
+    ViewBag.Title = pageIndex == 1 ? category.Name : category.Name + " - Trang " + pageIndex;
+    ViewBag.MetaKeyword = pageIndex == 1 ? category.MetaKeyword : category.MetaKeyword + " - Trang " + pageIndex;
+    ViewBag.MetaDescription = pageIndex == 1 ? category.MetaDescription : category.MetaDescription + " - Trang " + pageIndex;
+    Layout = "~/Views/Shared/Layouts.cshtml";
 }
 <div class="women-product">
     @if (Model.Count > 0)
