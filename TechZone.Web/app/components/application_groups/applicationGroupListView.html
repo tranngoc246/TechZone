@@ -5,8 +5,7 @@
 
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-        <li><a href="#">Nhóm người dùng</a></li>
+        <li><a href="#/admin"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
         <li class="active">Danh mục nhóm</li>
     </ol>
 </section>
@@ -16,26 +15,22 @@
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">Danh mục nhóm</h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-            </div>
         </div>
         <div class="box-body">
-            <di class="row">
+            <div class="row" style="margin-bottom: 10px;">
                 <div class="col-md-6">
                     <div class="input-group">
                         <input type="text" class="form-control" ng-model="keyword" placeholder="Từ khóa">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" ng-click="search()">Tìm kiếm</button>
                         </span>
-                    </div><!-- /input-group -->
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success" ui-sref="add_application_group">Thêm mới</button>
+                    <button class="btn btn-success" ui-sref="add_application_group"><i class="fa fa-plus"></i> Thêm mới</button>
                     <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa</button>
                 </div>
-            </di>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
@@ -64,6 +59,13 @@
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+                <div ng-if="loading">
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4">
+                        <label class="label label-primary">Đang tải...</label>
+                    </div>
+                    <div class="col-xs-4"></div>
                 </div>
             </div>
         </div><!-- /.box-body -->

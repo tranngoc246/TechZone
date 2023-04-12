@@ -2,11 +2,10 @@
 <section class="content-header">
     <h1>
         Sản phẩm
-
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-        <li><a href="#">Sản phẩm</a></li>
+        <li><a href="#/admin"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a href="javascript:void(0);">Sản phẩm</a></li>
         <li class="active">Danh sách</li>
     </ol>
 </section>
@@ -22,7 +21,7 @@
             </div>
         </div>
         <div class="box-body">
-            <di class="row">
+            <div class="row" style="margin-bottom: 10px;">
                 <div class="col-md-6">
                     <div class="input-group">
                         <input type="text" class="form-control" ng-model="keyword" placeholder="Từ khóa">
@@ -32,10 +31,10 @@
                     </div><!-- /input-group -->
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success" ui-sref="product_add">Thêm mới</button>
+                    <button class="btn btn-success" ui-sref="product_add"><i class="fa fa-plus"></i> Thêm mới</button>
                     <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa</button>
                 </div>
-            </di>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
@@ -71,6 +70,13 @@
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+                <div ng-if="loading">
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4">
+                        <label class="label label-primary">Đang tải...</label>
+                    </div>
+                    <div class="col-xs-4"></div>
                 </div>
             </div>
         </div><!-- /.box-body -->

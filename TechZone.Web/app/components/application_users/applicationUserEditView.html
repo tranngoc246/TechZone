@@ -3,9 +3,9 @@
         Cập nhất người dùng
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/admin"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-        <li><a ui-sref="accounts">Danh mục người dùng</a></li>
-        <li class="active"><a href="#">Cập nhật</a></li>
+        <li><a href="#/admin"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a ui-sref="application_users">Danh mục người dùng</a></li>
+        <li class="active">Cập nhật</li>
     </ol>
 </section>
 <section class="content">
@@ -50,7 +50,7 @@
                             <div class="form-group" ng-class="{ 'has-error' : frmUpdateAccount.birthDate.$invalid && !frmUpdateAccount.birthDate.$pristine }">
                                 <label class="col-sm-2 control-label">Ngày sinh</label>
                                 <div class="col-sm-10">
-                                    <input type="date" name="birthDate" as-date class="form-control"
+                                    <input type="date" name="birthDate" value="{{account.BirthDay|date:'yyyy-MM-dd'}}" class="form-control"
                                            required reqired-message="Ngày sinh bắt buộc." ng-model="account.BirthDay">
                                 </div>
                             </div>
