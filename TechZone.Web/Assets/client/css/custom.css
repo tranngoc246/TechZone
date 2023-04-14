@@ -34,3 +34,8 @@
     border: none;
     outline: none;
 }
+.arrow-img {
+    padding-top: 20px;
+    padding-right: 10px;
+    float: right;
+}

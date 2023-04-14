@@ -10,7 +10,7 @@
             $scope.loginSubmit = function () {
                 loginService.login($scope.loginData.userName, $scope.loginData.password).then(function (response) {
                     if (response != null && response.error != undefined) {
-                        notificationService.displayError("Tài khoản hoặc mật khẩu không đúng.");
+                        notificationService.displayError(response.error_description);
                     }
                     else {
                         var stateService = $injector.get('$state');
