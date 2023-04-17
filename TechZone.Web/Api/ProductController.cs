@@ -63,15 +63,23 @@ namespace TechZone.Web.Api
         public ProductCategoryViewModel GetProductCategory(int id)
         {
             var model = _productCategoryService.GetById(id);
-            return _mappingService.Mapper.Map<ProductCategory, ProductCategoryViewModel>(model);            
+            return _mappingService.Mapper.Map<ProductCategory, ProductCategoryViewModel>(model);
         }
 
         [Route("getall")]
         [HttpGet]
-        public IHttpActionResult GetAll(string keyword, int page = 0, int pageSize = 20)
+        public IHttpActionResult GetAll(string keyword, int categoryId = 0, int page = 0, int pageSize = 20)
         {
             int totalRow = 0;
-            var model = _productService.GetAll(keyword);
+            IEnumerable<Product> model;
+            if (categoryId == 0)
+            {
+                model = _productService.GetAll(keyword);
+            }
+            else
+            {
+                model = _productService.GetAll(keyword, categoryId);
+            }
 
             totalRow = model.Count();
             var query = model.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
@@ -366,6 +374,7 @@ namespace TechZone.Web.Api
 
             return Request.CreateResponse(HttpStatusCode.OK, "Đã nhập " + addedCount + " sản phẩm thành công.");
         }
+
         private List<Product> ReadProductFromExcel(string fullPath, int categoryId)
         {
             using (var package = new ExcelPackage(new FileInfo(fullPath)))
@@ -393,7 +402,8 @@ namespace TechZone.Web.Api
                     productViewModel.Name = workSheet.Cells[i, 1].Value.ToString();
                     productViewModel.Alias = StringHelper.ToUnsignString(productViewModel.Name);
 
-                    if (!string.IsNullOrWhiteSpace(workSheet.Cells[i, 2].Value?.ToString())){
+                    if (!string.IsNullOrWhiteSpace(workSheet.Cells[i, 2].Value?.ToString()))
+                    {
                         productViewModel.Description = workSheet.Cells[i, 2].Value.ToString();
                     }
 
@@ -417,7 +427,7 @@ namespace TechZone.Web.Api
 
                     int.TryParse(workSheet.Cells[i, 7].Value?.ToString().Replace(",", ""), out quantity);
                     productViewModel.Quantity = quantity;
-                    
+
                     if (!string.IsNullOrWhiteSpace(workSheet.Cells[i, 8].Value?.ToString()))
                     {
                         productViewModel.Content = workSheet.Cells[i, 8].Value.ToString();
@@ -430,7 +440,6 @@ namespace TechZone.Web.Api
                     {
                         productViewModel.MetaDescription = workSheet.Cells[i, 10].Value.ToString();
                     }
-
 
                     bool.TryParse(workSheet.Cells[i, 11].Value.ToString(), out status);
                     productViewModel.Status = status;

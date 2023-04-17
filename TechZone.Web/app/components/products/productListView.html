@@ -53,7 +53,7 @@
                             <td style="vertical-align: middle;"><input type="checkbox" ng-model="item.checked" name="all" /></td>
                             <td style="vertical-align: middle; text-align: center">{{item.ID}}</td>
                             <td style="vertical-align: middle; text-align: center"><img src="{{item.Image}}" alt="{{item.Name}}" height="50" /></td>
-                            <td style="vertical-align: middle;"><a ui-sref="product_edit({id:item.ID})">{{item.Name}}</a></td>
+                            <td style="vertical-align: middle;"><a ui-sref="product_edit({idProduct:item.ID,idCategory:item.ProductCategory.ID})">{{item.Name}}</a></td>
                             <td style="vertical-align: middle;">{{item.ProductCategory.Name}}</td>
                             <td style="vertical-align: middle;">{{item.Manufacturer}}</td>
                             <td style="vertical-align: middle; text-align: center">{{item.Quantity}}</td>
@@ -68,7 +68,7 @@
                             </td>
                             <td style="vertical-align: middle; text-align: center">
                                 <button class="btn btn-sm btn-default" ng-click="exportPdf(item.ID)"><i class="fa fa-file-excel-o"></i></button>
-                                <button class="btn btn-sm btn-primary" ui-sref="product_edit({id:item.ID})"><i class="fa fa-pencil"></i></button>
+                                <button class="btn btn-sm btn-primary" ui-sref="product_edit({idProduct:item.ID,idCategory:item.ProductCategory.ID})"><i class="fa fa-pencil"></i></button>
                                 <button class="btn  btn-sm btn-danger" ng-click="deleteProduct(item.ID)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>

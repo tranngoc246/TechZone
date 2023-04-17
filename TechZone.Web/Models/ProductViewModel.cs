@@ -30,5 +30,6 @@ namespace TechZone.Web.Models
         public decimal OriginalPrice { set; get; }
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
         public string Manufacturer { set; get; }
+        public int ProductCategoryID { set; get; }
     }
 }

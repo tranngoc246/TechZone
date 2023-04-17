@@ -8,6 +8,11 @@
     function config($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('products', {
+                url: "/products/:categoryId",
+                parent: 'base',
+                templateUrl: "/app/components/products/productListView.html",
+                controller: "productListController"
+            }).state('product_all', {
                 url: "/products",
                 parent: 'base',
                 templateUrl: "/app/components/products/productListView.html",
@@ -23,7 +28,7 @@
                 templateUrl: "/app/components/products/productImportView.html",
                 controller: "productImportController"
             }).state('product_edit', {
-                url: "/product_edit/:id",
+                url: "/product_edit/:idProduct/:idCategory",
                 parent: 'base',
                 templateUrl: "/app/components/products/productEditView.html",
                 controller: "productEditController"

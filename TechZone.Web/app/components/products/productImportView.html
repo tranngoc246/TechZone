@@ -25,22 +25,45 @@
                     <label for="inputEmail3" class="col-sm-2 control-label">Chọn file Excel</label>
                     <div class="col-sm-10">
                         <input type="file" file-upload name="file" required />
-                        <span ng-show="frmAddProduct.file.$invalid" class="has-error">Phải nhập  file</span>
+                        <span ng-show="frmImportProduct.file.$invalid" class="has-error">Phải nhập  file</span>
 
                     </div>
                 </div>
+                
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Danh mục</label>
                     <div class="col-sm-10">
-                        <select name="parentId" class="form-control" ng-model="categoryId" ng-options="option.ID as option.Name for option in flatFolders">
-                            <option value="">Danh mục gốc</option>
-                        </select>
+                        <ui-select ng-model="product.ProductCategoryID" ng-change="loadManufacturer()"  name="categoryId" theme="bootstrap" style="min-width: 300px;" title="Chọn danh mục">
+                            <ui-select-match placeholder="Vui lòng chọn danh mục">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="item.ID as item in productCategories | filter: $select.search">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                <!--<small>
+                                    Tên danh mục: {{item.Name}}
+                                </small>-->
+                            </ui-select-choices>
+                        </ui-select>
                         <span ng-show="frmImportProduct.categoryId.$invalid" class="has-error">Phải chọn danh mục</span>
 
-                        <input type="hidden" name="categoryId" ng-model="categoryId" />
+                        <input type="hidden" name="categoryId" ng-model="product.ProductCategoryID" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Nhà sản xuất</label>
+                    <div class="col-sm-10">
+                        <ui-select ng-model="product.CategoryID" name="manufacturerId" theme="bootstrap" style="min-width: 300px;" title="Chọn nhà sản xuất">
+                            <ui-select-match placeholder="Vui lòng chọn nhà sản xuất">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="item.ID as item in productManufacturer | filter: $select.search">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                <!--<small>
+                                    Tên danh mục: {{item.Name}}
+                                </small>-->
+                            </ui-select-choices>
+                        </ui-select>
+                        <span ng-show="frmImportProduct.manufacturerId.$invalid" class="has-error">Phải chọn nhà sản xuất</span>
 
+                        <input type="hidden" name="manufacturerId" ng-model="product.CategoryID" />
+                    </div>
+                </div>
             </div><!-- /.box-body -->
             <div class="box-footer text-center">
                 <button ui-sref="products" class="btn btn-default">Hủy</button>

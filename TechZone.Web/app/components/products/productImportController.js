@@ -4,11 +4,11 @@
     productImportController.$inject = ['apiService', '$http', 'authenticationService', '$scope', 'notificationService', '$state', 'commonService'];
 
     function productImportController(apiService, $http, authenticationService, $scope, notificationService, $state, commonService) {
-
         $scope.files = [];
-        $scope.categoryId = 0;
+        $scope.product = {};
         $scope.ImportProduct = ImportProduct;
-        $scope.flatFolders = [];
+        $scope.loadManufacturer = loadManufacturer;
+
         $scope.$on("fileSelected", function (event, args) {
             $scope.$apply(function () {
                 $scope.files.push(args.file);
@@ -29,7 +29,7 @@
                     }
                     return formData;
                 },
-                data: { categoryId: $scope.categoryId, files: $scope.files }
+                data: { categoryId: $scope.product.CategoryID, files: $scope.files }
             }).then(function (result, status, headers, config) {
                 notificationService.displaySuccess(result.data);
                 $state.go('products');
@@ -38,38 +38,34 @@
                     notificationService.displayError(data);
                 });
         }
+
         function loadProductCategory() {
-            apiService.get('api/productcategory/getallparents', null, function (result) {
-                $scope.parentCategories = commonService.getTree(result.data, "ID", "ParentID");
-                $scope.parentCategories.forEach(function (item) {
-                    recur(item, 0, $scope.flatFolders);
-                });
-            }, function () {
-                console.log('Cannot get list parent');
-            });
+            var config = {
+                params: {
+                    keyword: '',
+                    page: 0,
+                    pageSize: 100
+                }
+            }
+            apiService.get('api/productcategory/getallProductCategory', config, function (result) {
+                $scope.productCategories = result.data.Items;
+            }, function () { });
         }
 
-        function times(n, str) {
-            var result = '';
-            for (var i = 0; i < n; i++) {
-                result += str;
+        function loadManufacturer() {
+            $scope.product.CategoryID = null;
+            var config = {
+                params: {
+                    keyword: '',
+                    page: 0,
+                    pageSize: 100
+                }
             }
-            return result;
-        };
-        function recur(item, level, arr) {
-            arr.push({
-                Name: times(level, '–') + ' ' + item.Name,
-                ID: item.ID,
-                Level: level,
-                Indent: times(level, '–')
-            });
-            if (item.children) {
-                item.children.forEach(function (item) {
-                    recur(item, level + 1, arr);
-                });
-            }
-        };
+            apiService.get('api/productcategory/getallManufacturer/' + $scope.product.ProductCategoryID, config, function (result) {
+                $scope.productManufacturer = result.data.Items;
+            }, function () { });
+        }
+
         loadProductCategory();
     }
-
 })(angular.module('techzone.products'));

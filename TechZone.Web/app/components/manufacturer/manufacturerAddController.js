@@ -40,5 +40,4 @@
         getProductCategory();
         loadParentCategory();
     }
-
-})(angular.module('techzone.product_categories'));
+})(angular.module('techzone.manufacturer'));

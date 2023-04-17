@@ -3,6 +3,7 @@
 (function () {
     angular.module('techzone',
         ['techzone.products',
+            'techzone.manufacturer',
             'techzone.application_groups',
             'techzone.product_categories',
             'techzone.application_roles',

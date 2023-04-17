@@ -12,9 +12,10 @@
             languague: 'vi',
             height: '200px'
         }
-        $scope.flatFolders = [];
+
         $scope.AddProduct = AddProduct;
         $scope.GetSeoTitle = GetSeoTitle;
+        $scope.loadManufacturer = loadManufacturer;
 
         function GetSeoTitle() {
             $scope.product.Alias = commonService.getSeoTitle($scope.product.Name);
@@ -22,6 +23,8 @@
 
         function AddProduct() {
             $scope.product.MoreImages = JSON.stringify($scope.moreImages);
+            if (!$scope.product.CategoryID)
+                $scope.product.CategoryID = $scope.product.ProductCategoryID;
             apiService.post('api/product/create', $scope.product,
                 function (result) {
                     notificationService.displaySuccess(result.data.Name + ' đã được thêm mới.');
@@ -30,16 +33,34 @@
                     notificationService.displayError('Thêm mới không thành công.');
                 });
         }
+
         function loadProductCategory() {
-            apiService.get('api/productcategory/getallparents', null, function (result) {
-                $scope.productCategories = commonService.getTree(result.data, "ID", "ParentID");
-                $scope.productCategories.forEach(function (item) {
-                    recur(item, 0, $scope.flatFolders);
-                });
-            }, function () {
-                console.log('Cannot get list parent');
-            });
+            var config = {
+                params: {
+                    keyword: '',
+                    page: 0,
+                    pageSize: 100
+                }
+            }
+            apiService.get('api/productcategory/getallProductCategory', config, function (result) {
+                $scope.productCategories = result.data.Items;
+            }, function () {});
         }
+
+        function loadManufacturer() {
+            $scope.product.CategoryID = null;
+            var config = {
+                params: {
+                    keyword: '',
+                    page: 0,
+                    pageSize: 100
+                }
+            }
+            apiService.get('api/productcategory/getallManufacturer/' + $scope.product.ProductCategoryID, config, function (result) {
+                $scope.productManufacturer = result.data.Items;
+            }, function () {});
+        }
+
         $scope.ChooseImage = function () {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
@@ -62,26 +83,6 @@
             finder.popup();
         }
 
-        function times(n, str) {
-            var result = '';
-            for (var i = 0; i < n; i++) {
-                result += str;
-            }
-            return result;
-        };
-        function recur(item, level, arr) {
-            arr.push({
-                Name: times(level, '–') + ' ' + item.Name,
-                ID: item.ID,
-                Level: level,
-                Indent: times(level, '–')
-            });
-            if (item.children) {
-                item.children.forEach(function (item) {
-                    recur(item, level + 1, arr);
-                });
-            }
-        };
         loadProductCategory();
     }
 })(angular.module('techzone.products'));

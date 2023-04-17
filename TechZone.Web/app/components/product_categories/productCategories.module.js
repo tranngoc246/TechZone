@@ -22,21 +22,6 @@
             parent: 'base',
             templateUrl: "/app/components/product_categories/productCategoryEditView.html",
             controller: "productCategoryEditController"
-        }).state('manufacturer', {
-            url: "/manufacturer/:id",
-            parent: 'base',
-            templateUrl: "/app/components/manufacturer/manufacturerListView.html",
-            controller: "manufacturerListController"
-        }).state('add_manufacturer', {
-            url: "/add_manufacturer/:id",
-            parent: 'base',
-            templateUrl: "/app/components/manufacturer/manufacturerAddView.html",
-            controller: "manufacturerAddController"
-        }).state('edit_manufacturer', {
-            url: "/edit_manufacturer/:idCategory/:idManufacturer",
-            parent: 'base',
-            templateUrl: "/app/components/manufacturer/manufacturerEditView.html",
-            controller: "manufacturerEditController"
         });
     }
 })();

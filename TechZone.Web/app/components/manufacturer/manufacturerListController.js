@@ -115,4 +115,4 @@
         getProductCategory();
         $scope.getManufacturer();
     }
-})(angular.module('techzone.product_categories'));
+})(angular.module('techzone.manufacturer'));
