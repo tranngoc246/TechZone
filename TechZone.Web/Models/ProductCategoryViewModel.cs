@@ -27,14 +27,11 @@ namespace TechZone.Web.Models
 
         public DateTime? CreatedDate { set; get; }
 
-
         public string CreatedBy { set; get; }
 
         public DateTime? UpdatedDate { set; get; }
 
-
         public string UpdatedBy { set; get; }
-
 
         public string MetaKeyword { set; get; }
 
@@ -42,5 +39,6 @@ namespace TechZone.Web.Models
 
         [Required(ErrorMessage = "Yêu cầu nhập trạng thái")]
         public bool Status { set; get; }
+        public virtual ProductCategoryViewModel ProductCategoryParent { set; get; }
     }
 }

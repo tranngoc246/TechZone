@@ -46,20 +46,74 @@ namespace TechZone.Web.Api
         [HttpGet]
         public IHttpActionResult GetById(int id)
         {
-            var model = _productCategoryService.GetById(id);
-            var responseData = _mappingService.Mapper.Map<ProductCategory, ProductCategoryViewModel>(model);
-            return Ok(responseData);
+            return Ok(GetProductCategory(id));
         }
 
-        [Route("getall")]
-        [HttpGet]
-        public IHttpActionResult GetAll(string keyword, int page, int pageSize = 20)
+        public ProductCategoryViewModel GetProductCategory(int id)
         {
-            int totalRow = 0;
-            var model = _productCategoryService.GetAll(keyword);
+            var model = _productCategoryService.GetById(id);
+            return _mappingService.Mapper.Map<ProductCategory, ProductCategoryViewModel>(model);
+        }
 
-            totalRow = model.Count();
+        [Route("getallProductCategory")]
+        [HttpGet]
+        public IHttpActionResult GetAllProductCategory(string keyword, int page, int pageSize = 20)
+        {
+            var model = _productCategoryService.GetAll(keyword);
+            List<ProductCategory> data = new List<ProductCategory>();
+
+            foreach (var item in model)
+            {
+                if (!item.ParentID.HasValue)
+                {
+                    data.Add(item);
+                }
+            }
+            return GetAll(page, pageSize, data);
+        }
+
+
+        [Route("getallManufacturer/{id:int}")]
+        [HttpGet]
+        public IHttpActionResult GetAllManufacturer(string keyword, int page, int id, int pageSize = 20)
+        {
+            var model = _productCategoryService.GetAll(keyword);
+            List<ProductCategory> data = new List<ProductCategory>();
+
+            foreach (var item in model)
+            {
+                if (item.ParentID.HasValue)
+                {
+                    if (item.ParentID.Value == id)
+                    {
+                        data.Add(item);
+                    }
+                }
+            }
+            return GetAll(page, pageSize, data);
+        }
+
+        private IHttpActionResult GetAll(int page, int pageSize, IEnumerable<ProductCategory> model)
+        {
+            int totalRow = model.Count();
             var query = model.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
+
+            var responseData = _mappingService.Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(query);
+
+            var paginationSet = new PaginationSet<ProductCategoryViewModel>()
+            {
+                Items = responseData,
+                Page = page,
+                TotalCount = totalRow,
+                TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+            };
+            return Ok(paginationSet);
+        }
+
+        private IHttpActionResult GetAll(int page, int pageSize, List<ProductCategory> data)
+        {
+            int totalRow = data.Count();
+            var query = data.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
 
             var responseData = _mappingService.Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(query);
 

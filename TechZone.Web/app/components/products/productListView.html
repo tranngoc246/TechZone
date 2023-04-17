@@ -29,46 +29,58 @@
                 <div class="col-md-6">
                     <button class="btn btn-success" ui-sref="product_add"><i class="fa fa-plus"></i> Thêm mới</button>
                     <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa</button>
+                    <a class="btn btn-warning" href="/Assets/admin/templates/ProductImportTemplate.xlsx">Download template</a>
+                    <button class="btn btn-primary" ui-sref="product_import">Nhập từ Excel</button>
+                    <button class="btn btn-default" ng-click="exportExcel()">Xuất ra Excel</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <tr>
-                            <td><input name="all" type="checkbox" ng-click="selectAll()" /></td>
-                            <th style="width: 5%">ID</th>
-                            <th style="width:55%">Tên sản phẩm</th>
-                            <th style="width: 20%">Ngày tạo</th>
-                            <th style="width: 10%">Trạng thái</th>
-                            <th style="width: 10%">Thao tác</th>
+                            <th style="width: 0%"><input name="all" type="checkbox" ng-click="selectAll()" /></th>
+                            <th style="width: 3%; text-align: center">ID</th>
+                            <th style="width: 7%; text-align:center">Hình ảnh</th>
+                            <th style="width: 30%">Tên sản phẩm</th>
+                            <th style="width: 10%">Danh mục</th>
+                            <th style="width: 10%">Hãng sản xuất</th>
+                            <th style="width: 10%; text-align: center">Số lượng</th>
+                            <th style="width: 10%">Ngày tạo</th>
+                            <th style="width: 10%; text-align:center">Trạng thái</th>
+                            <th style="width: 10%; text-align: center">Thao tác</th>
                         </tr>
                         <tr ng-repeat="item in products">
-                            <td><input type="checkbox" ng-model="item.checked" name="all" /></td>
-                            <td>{{item.ID}}</td>
-                            <td>{{item.Name}}</td>
-                            <td>
+                            <td style="vertical-align: middle;"><input type="checkbox" ng-model="item.checked" name="all" /></td>
+                            <td style="vertical-align: middle; text-align: center">{{item.ID}}</td>
+                            <td style="vertical-align: middle; text-align: center"><img src="{{item.Image}}" alt="{{item.Name}}" height="50" /></td>
+                            <td style="vertical-align: middle;"><a ui-sref="product_edit({id:item.ID})">{{item.Name}}</a></td>
+                            <td style="vertical-align: middle;">{{item.ProductCategory.Name}}</td>
+                            <td style="vertical-align: middle;">{{item.Manufacturer}}</td>
+                            <td style="vertical-align: middle; text-align: center">{{item.Quantity}}</td>
+                            <td style="vertical-align: middle;">
                                 {{item.CreatedDate  | date:'dd/MM/yyyy hh:mm:ss'}}
                             </td>
                             <!--class="badge bg-red"-->
-                            <td>
+                            <td style="vertical-align: middle; text-align: center">
                                 <span ng-class="{'badge bg-red':item.Status==false,'badge bg-green':item.Status==true}">
                                     {{item.Status | statusFilter}}
                                 </span>
                             </td>
-                            <td>
+                            <td style="vertical-align: middle; text-align: center">
+                                <button class="btn btn-sm btn-default" ng-click="exportPdf(item.ID)"><i class="fa fa-file-excel-o"></i></button>
                                 <button class="btn btn-sm btn-primary" ui-sref="product_edit({id:item.ID})"><i class="fa fa-pencil"></i></button>
                                 <button class="btn  btn-sm btn-danger" ng-click="deleteProduct(item.ID)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                         <tfoot>
                             <tr>
-                                <td colspan="6"><span class="pull-right">Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></td>
+                                <td colspan="10"><span class="pull-right">Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></td>
                             </tr>
                         </tfoot>
                     </table>
                     <div ng-if="loading">
                         <div class="col-xs-4"></div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-4 text-center">
                             <label class="label label-primary">Đang tải...</label>
                         </div>
                         <div class="col-xs-4"></div>

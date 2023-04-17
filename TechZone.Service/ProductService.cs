@@ -29,6 +29,8 @@ namespace TechZone.Service
 
         IEnumerable<string> GetListProductByName(string name);
 
+        IEnumerable<Product> GetListProduct(string keyword);
+
         IEnumerable<Product> GetReatedProducts(int id, int top);
 
         Product GetById(int id);
@@ -248,6 +250,16 @@ namespace TechZone.Service
                 return false;
             product.Quantity -= quantity;
             return true;
+        }
+
+        public IEnumerable<Product> GetListProduct(string keyword)
+        {
+            IEnumerable<Product> query;
+            if (!string.IsNullOrEmpty(keyword))
+                query = _productRepository.GetMulti(x => x.Name.Contains(keyword));
+            else
+                query = _productRepository.GetAll();
+            return query;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace TechZone.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 3600)]
+        //[OutputCache(Duration = 3600)]
         public ActionResult Footer()
         {
             var footerModel = _commonService.GetFooter();
@@ -75,7 +75,7 @@ namespace TechZone.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 3600)]
+        //[OutputCache(Duration = 3600)]
         public ActionResult Category()
         {
             var model = _productCategoryService.GetAll();

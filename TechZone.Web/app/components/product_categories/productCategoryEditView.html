@@ -46,27 +46,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Danh mục cha</label>
-                    <div class="col-sm-10">
-                        <select name="parentId" class="form-control" ng-model="productCategory.ParentID" ng-options="option.ID as option.Name for option in parentCategories">
-                            <option value="">Danh mục gốc</option>
-                        </select>
-                        <input type="hidden" name="parentId" ng-model="productCategory.ParentID" />
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Thứ tự</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" name="displayOrder" required ng-model="productCategory.DisplayOrder">
                         <span ng-show="frmAddProductCategory.displayOrder.$invalid" class="has-error">Phải nhập thứ tự</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Hình ảnh</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="image" ng-maxlength="256" ng-model="productCategory.Image">
-                        <span ng-show="frmAddProductCategory.image.$error.maxlength" class="has-error">Hình ảnh chỉ được 256 ký tự</span>
-
                     </div>
                 </div>
                 <div class="form-group">
