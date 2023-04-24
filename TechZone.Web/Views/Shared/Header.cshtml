@@ -65,7 +65,7 @@
                     if (Request.IsAuthenticated)
                     {
                         @Html.AntiForgeryToken()
-                        <ul class="login">
+                        <ul class="account">
                             <li><a href="/tai-khoan.html/"><span> </span>Xin chào: @User.Identity.GetUserName()</a></li> |
                             <li><a href="#" id="btnLogout">Thoát</a></li>
                         </ul>

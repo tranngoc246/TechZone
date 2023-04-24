@@ -452,6 +452,11 @@
     <Content Include="app\components\manufacturer\manufacturerEditView.html" />
     <Content Include="app\components\manufacturer\manufacturerListController.js" />
     <Content Include="app\components\manufacturer\manufacturerListView.html" />
+    <Content Include="app\components\order\orderListController.js" />
+    <Content Include="app\components\order\orderDetailController.js" />
+    <Content Include="app\components\order\orderDetailView.html" />
+    <Content Include="app\components\order\orderListView.html" />
+    <Content Include="app\components\order\order.module.js" />
     <Content Include="app\components\products\productImportController.js" />
     <Content Include="app\components\products\productImportView.html" />
     <Content Include="app\components\products\products.module.js" />
@@ -5275,7 +5280,6 @@
     <Content Include="Assets\client\js\jquery.min.js" />
     <Content Include="Assets\client\js\jquery.wmuSlider.js" />
     <Content Include="Global.asax" />
-    <Content Include="Libs\CKFinder.dll" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -5290,6 +5294,7 @@
     <Folder Include="app\shared\naviagation\" />
     <Folder Include="App_Data\" />
     <Folder Include="Assets\admin\libs\checklist-model\test\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Reports\" />
     <Folder Include="Scripts\" />
     <Folder Include="UploadedFiles\" />
@@ -5643,6 +5648,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TechZone.Common\TechZone.Common.csproj">

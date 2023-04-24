@@ -8,6 +8,7 @@
             'techzone.product_categories',
             'techzone.application_roles',
             'techzone.application_users',
+            'techzone.order',
             'techzone.statistics',
             'techzone.common'])
         .config(config)

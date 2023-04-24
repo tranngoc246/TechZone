@@ -3,16 +3,16 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddTagFiled : DbMigration
+    public partial class AddOrderDateForOrdrerDetail : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Products", "Tags", c => c.String());
+            AddColumn("dbo.OrderDetails", "OrderDate", c => c.DateTime());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Products", "Tags");
+            DropColumn("dbo.OrderDetails", "OrderDate");
         }
     }
 }

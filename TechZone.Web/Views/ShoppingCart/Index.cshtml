@@ -4,10 +4,6 @@
     Layout = "~/Views/Shared/Layouts.cshtml";
 }
 @section footerJS{
-    <script>
-
-        console.log("helloaaa");
-    </script>
     <script src="~/Assets/client/js/controllers/shoppingCart.js"></script>
 }
 <div class="single_top">
@@ -16,13 +12,13 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td>STT</td>
+                        <td style="width: 25px;">STT</td>
                         <td>Tên sản phẩm</td>
                         <td>Hình ảnh</td>
                         <td>Giá</td>
-                        <td>Số lượng</td>
+                        <td style="width:172px">Số lượng</td>
                         <td>Thành tiền</td>
-                        <td>#</td>
+                        <td style="width: 36px;text-align:center">#</td>
                     </tr>
                 </thead>
                 <tbody id="cartBody"></tbody>
@@ -32,12 +28,12 @@
             </div>
             <button class="btn btn-success btnContinue">Tiếp tục mua hàng</button>
             <button class="btn btn-danger" id="btnDeleteAll">Xóa giỏ hàng</button>
-            <button class="btn btn" id="btnCheckout">Thanh toán</button>
+            <button class="btn btn" id="btnCheckout">Đặt hàng</button>
         </div>
         <div id="divCheckout" style="display:none;">
             <div class="reservation_top">
                 <div class="contact_right">
-                    <h3>Thanh toán</h3>
+                    <h3>Đặt hàng</h3>
                     <div class="contact-form">
                         <form method="post" id="frmPayment">
                             @if (Request.IsAuthenticated)
@@ -52,7 +48,7 @@
                             <input type="text" class="textbox" id="txtEmail" name="email" placeholder="Email">
                             <input type="text" class="textbox" id="txtPhone" name="phone" placeholder="Điện thoại">
                             <textarea value="" id="txtMessage">Message</textarea>
-                            <input type="button" id="btnCreateOrder" value="Thanh toán">
+                            <input type="button" id="btnCreateOrder" value="Đặt hàng">
                             <div class="clearfix"> </div>
                         </form>
 
@@ -67,13 +63,13 @@
 
 <script id="tplCart" type="x-tmpl-mustache">
   <tr>
-    <td>{{ProductId}}</td>
+    <td style="text-align:center">{{Id}}</td>
     <td>{{ProductName}}</td>
     <td><img src="{{Image}}" height="50" /></td>
     <td>{{PriceF}}</td>
     <td><input type="number" data-id="{{ProductId}}" data-price="{{Price}}" value="{{Quantity}}" class="input txtQuantity" /></td>
     <td id="amount_{{ProductId}}">{{Amount}}</td>
-    <td><button class="btn btn-danger btnDeleteItem" data-id="{{ProductId}}"><i class="fa fa-close"></i></button></td>
+    <td><button class="btn btn-danger btnDeleteItem" data-id="{{ProductId}}"><i class="fa fa-trash"></i></button></td>
   </tr>
 
 </script>

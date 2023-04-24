@@ -54,7 +54,7 @@
             $ngBootbox.confirm('Bạn có chắc muốn xóa ' + $scope.count +' bản ghi này không?').then(function () {
                 var listId = [];
                 $.each($scope.selected, function (i, item) {
-                    listId.push(item.ID);
+                    listId.push(item.Product.ID);
                 });
                 var config = {
                     params: {

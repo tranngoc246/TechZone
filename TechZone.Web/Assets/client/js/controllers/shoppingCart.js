@@ -205,6 +205,7 @@
                     var data = res.data;
                     $.each(data, function (i, item) {
                         html += Mustache.render(template, {
+                            Id: i+1,
                             ProductId: item.ProductId,
                             ProductName: item.Product.Name,
                             Image: item.Product.Image,

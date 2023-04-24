@@ -325,7 +325,7 @@ namespace TechZone.Web.Api
             //do stuff with files if you wish
             if (result.FormData["categoryId"] == null)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bạn chưa chọn danh mục sản phẩm.");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bạn chưa chọn nhà sản xuất.");
             }
 
             //Upload files
@@ -442,7 +442,7 @@ namespace TechZone.Web.Api
                     }
 
                     bool.TryParse(workSheet.Cells[i, 11].Value.ToString(), out status);
-                    productViewModel.Status = status;
+                    productViewModel.Status = false;
 
                     bool.TryParse(workSheet.Cells[i, 12].Value.ToString(), out showHome);
                     productViewModel.HomeFlag = showHome;

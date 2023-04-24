@@ -33,9 +33,11 @@ namespace TechZone.Web.Controllers
             var viewModel = _mappingService.Mapper.Map<Product, ProductViewModel>(productModel);
             var relatedProduct = _productService.GetReatedProducts(productId, 6);
             ViewBag.RelatedProducts = _mappingService.Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProduct);
-
-            List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(viewModel.MoreImages);
-            ViewBag.MoreImages = listImages;
+            if (!string.IsNullOrEmpty(viewModel.MoreImages))
+            {
+                List<string> listImages = new JavaScriptSerializer().Deserialize<List<string>>(viewModel.MoreImages);
+                ViewBag.MoreImages = listImages;
+            }
 
             ViewBag.Tags = _mappingService.Mapper.Map<IEnumerable<Tag>, IEnumerable<TagViewModel>>(_productService.GetListTagByProductId(productId));
             return View(viewModel);

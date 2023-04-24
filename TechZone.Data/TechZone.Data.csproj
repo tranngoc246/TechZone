@@ -70,53 +70,21 @@
     <Compile Include="Infracstructure\IUnitOfWork.cs" />
     <Compile Include="Infracstructure\RepositoryBase.cs" />
     <Compile Include="Infracstructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\202303150417115_InitialDB.cs" />
-    <Compile Include="Migrations\202303150417115_InitialDB.designer.cs">
-      <DependentUpon>202303150417115_InitialDB.cs</DependentUpon>
+    <Compile Include="Migrations\202304191344263_AddOrderDateForOrdrerDetail.cs" />
+    <Compile Include="Migrations\202304191344263_AddOrderDateForOrdrerDetail.designer.cs">
+      <DependentUpon>202304191344263_AddOrderDateForOrdrerDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303281227122_AddTagFiled.cs" />
-    <Compile Include="Migrations\202303281227122_AddTagFiled.designer.cs">
-      <DependentUpon>202303281227122_AddTagFiled.cs</DependentUpon>
+    <Compile Include="Migrations\202304191437160_AddStatusForOrdrerDetail.cs" />
+    <Compile Include="Migrations\202304191437160_AddStatusForOrdrerDetail.designer.cs">
+      <DependentUpon>202304191437160_AddStatusForOrdrerDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202303311301022_AddContentToSlide.cs" />
-    <Compile Include="Migrations\202303311301022_AddContentToSlide.designer.cs">
-      <DependentUpon>202303311301022_AddContentToSlide.cs</DependentUpon>
+    <Compile Include="Migrations\202304191502314_UpdateOrdrerDetail.cs" />
+    <Compile Include="Migrations\202304191502314_UpdateOrdrerDetail.designer.cs">
+      <DependentUpon>202304191502314_UpdateOrdrerDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202304030201405_AddMoreQuantity.cs" />
-    <Compile Include="Migrations\202304030201405_AddMoreQuantity.designer.cs">
-      <DependentUpon>202304030201405_AddMoreQuantity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304030412119_AddForeignkey.cs" />
-    <Compile Include="Migrations\202304030412119_AddForeignkey.designer.cs">
-      <DependentUpon>202304030412119_AddForeignkey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304030927056_AddContactDetail.cs" />
-    <Compile Include="Migrations\202304030927056_AddContactDetail.designer.cs">
-      <DependentUpon>202304030927056_AddContactDetail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304050428305_AddFeedback.cs" />
-    <Compile Include="Migrations\202304050428305_AddFeedback.designer.cs">
-      <DependentUpon>202304050428305_AddFeedback.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304060214141_AddCustomeID.cs" />
-    <Compile Include="Migrations\202304060214141_AddCustomeID.designer.cs">
-      <DependentUpon>202304060214141_AddCustomeID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304060350191_RenameTable.cs" />
-    <Compile Include="Migrations\202304060350191_RenameTable.designer.cs">
-      <DependentUpon>202304060350191_RenameTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304060359584_AddGroupUser.cs" />
-    <Compile Include="Migrations\202304060359584_AddGroupUser.designer.cs">
-      <DependentUpon>202304060359584_AddGroupUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304070150066_ChangeOrderDetail.cs" />
-    <Compile Include="Migrations\202304070150066_ChangeOrderDetail.designer.cs">
-      <DependentUpon>202304070150066_ChangeOrderDetail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304070329162_RevenuesStatisticSP.cs" />
-    <Compile Include="Migrations\202304070329162_RevenuesStatisticSP.designer.cs">
-      <DependentUpon>202304070329162_RevenuesStatisticSP.cs</DependentUpon>
+    <Compile Include="Migrations\202304240652241_AddIDForOrderDetail.cs" />
+    <Compile Include="Migrations\202304240652241_AddIDForOrderDetail.designer.cs">
+      <DependentUpon>202304240652241_AddIDForOrderDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -161,41 +129,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202303150417115_InitialDB.resx">
-      <DependentUpon>202303150417115_InitialDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202304191344263_AddOrderDateForOrdrerDetail.resx">
+      <DependentUpon>202304191344263_AddOrderDateForOrdrerDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303281227122_AddTagFiled.resx">
-      <DependentUpon>202303281227122_AddTagFiled.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202304191437160_AddStatusForOrdrerDetail.resx">
+      <DependentUpon>202304191437160_AddStatusForOrdrerDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303311301022_AddContentToSlide.resx">
-      <DependentUpon>202303311301022_AddContentToSlide.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202304191502314_UpdateOrdrerDetail.resx">
+      <DependentUpon>202304191502314_UpdateOrdrerDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304030201405_AddMoreQuantity.resx">
-      <DependentUpon>202304030201405_AddMoreQuantity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304030412119_AddForeignkey.resx">
-      <DependentUpon>202304030412119_AddForeignkey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304030927056_AddContactDetail.resx">
-      <DependentUpon>202304030927056_AddContactDetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304050428305_AddFeedback.resx">
-      <DependentUpon>202304050428305_AddFeedback.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304060214141_AddCustomeID.resx">
-      <DependentUpon>202304060214141_AddCustomeID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304060350191_RenameTable.resx">
-      <DependentUpon>202304060350191_RenameTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304060359584_AddGroupUser.resx">
-      <DependentUpon>202304060359584_AddGroupUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304070150066_ChangeOrderDetail.resx">
-      <DependentUpon>202304070150066_ChangeOrderDetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304070329162_RevenuesStatisticSP.resx">
-      <DependentUpon>202304070329162_RevenuesStatisticSP.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202304240652241_AddIDForOrderDetail.resx">
+      <DependentUpon>202304240652241_AddIDForOrderDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

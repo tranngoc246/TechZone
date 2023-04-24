@@ -1,5 +1,7 @@
-﻿using TechZone.Data.Infrastructure;
+﻿using System.Collections.Generic;
+using TechZone.Data.Infrastructure;
 using TechZone.Model.Models;
+using System.Linq;
 
 namespace TechZone.Data.Repositories
 {

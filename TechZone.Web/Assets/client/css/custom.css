@@ -39,3 +39,7 @@
     padding-right: 10px;
     float: right;
 }
+
+.account li{
+    display:inline;
+}

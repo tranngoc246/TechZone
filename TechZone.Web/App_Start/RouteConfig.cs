@@ -23,6 +23,12 @@ namespace TechZone.Web
                 namespaces: new string[] { "TechZone.Web.Controllers" }
             );
             routes.MapRoute(
+                name: "Account",
+                url: "tai-khoan.html",
+                defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "TechZone.Web.Controllers" }
+            );
+            routes.MapRoute(
                 name: "Login",
                 url: "dang-nhap.html",
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },

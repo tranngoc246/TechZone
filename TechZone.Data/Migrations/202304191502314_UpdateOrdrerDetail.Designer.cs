@@ -7,13 +7,13 @@ namespace TechZone.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddContentToSlide : IMigrationMetadata
+    public sealed partial class UpdateOrdrerDetail : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddContentToSlide));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateOrdrerDetail));
         
         string IMigrationMetadata.Id
         {
-            get { return "202303311301022_AddContentToSlide"; }
+            get { return "202304191502314_UpdateOrdrerDetail"; }
         }
         
         string IMigrationMetadata.Source

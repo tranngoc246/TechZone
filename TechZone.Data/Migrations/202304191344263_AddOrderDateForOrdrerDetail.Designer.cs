@@ -7,13 +7,13 @@ namespace TechZone.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class RevenuesStatisticSP : IMigrationMetadata
+    public sealed partial class AddOrderDateForOrdrerDetail : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RevenuesStatisticSP));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddOrderDateForOrdrerDetail));
         
         string IMigrationMetadata.Id
         {
-            get { return "202304070329162_RevenuesStatisticSP"; }
+            get { return "202304191344263_AddOrderDateForOrdrerDetail"; }
         }
         
         string IMigrationMetadata.Source

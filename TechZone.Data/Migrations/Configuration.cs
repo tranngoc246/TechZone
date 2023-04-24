@@ -20,14 +20,14 @@
 
         protected override void Seed(TechZone.Data.TechZoneDbContext context)
         {
-            CreateUser(context);
+            /*CreateUser(context);
             CreateProductCategorySample(context);
             CreateSlide(context);
             CreatePage(context);
 
             CreateContactDetail(context);
 
-            CreateConfigTitle(context);
+            CreateConfigTitle(context);*/
             //  This method will be called after migrating to the latest version.
         }
 

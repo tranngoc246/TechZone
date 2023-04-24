@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TechZone.Model.Models
@@ -7,15 +8,24 @@ namespace TechZone.Model.Models
     public class OrderDetail
     {
         [Key]
-        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { set; get; }
+
         public int OrderID { set; get; }
 
-        [Key]
-        [Column(Order = 2)]
         public int ProductID { set; get; }
 
         public int Quantity { set; get; }
+
         public decimal Price { set; get; }
+
+        public DateTime? OrderDate { set; get; }
+
+        public DateTime? DeliveryDate { set; get; }
+
+        public bool IsOrder { set; get; }
+
+        public bool IsDelivery { set; get; }
 
         [ForeignKey("OrderID")]
         public virtual Order Order { set; get; }

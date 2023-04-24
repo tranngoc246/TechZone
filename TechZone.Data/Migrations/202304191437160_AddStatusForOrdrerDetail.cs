@@ -3,16 +3,16 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddContentToSlide : DbMigration
+    public partial class AddStatusForOrdrerDetail : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Slides", "Content", c => c.String());
+            AddColumn("dbo.OrderDetails", "Status", c => c.Boolean(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Slides", "Content");
+            DropColumn("dbo.OrderDetails", "Status");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿body{
+﻿body {
     font-size: 16px;
 }
 /* Định dạng đấu X trên hộp thoại confirm trong ngBootbox  */
@@ -11,3 +11,46 @@
     font-style: italic;
     font-size: 14px;
 }
+/*
+.tab-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tab {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #fff;
+    cursor: pointer;
+    margin-right: -1px;
+    position: relative;
+    top: 1px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    z-index: 1;
+}
+
+    .tab.active {
+        background-color: #fff;
+        border-color: #ddd;
+        border-top: 2px solid #3097d1;
+        color: #3097d1;
+    }
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    z-index: 0;
+}
+
+    .tab-content.active {
+        display: block;
+    }*/

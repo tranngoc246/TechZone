@@ -118,6 +118,18 @@ namespace TechZone.Web.Infrastructure.Extensions
             order.Status = orderVm.Status;
             order.CustomerID = orderVm.CustomerId;
         }
+        public static void UpdateOrderDetail(this OrderDetail orderDetail, OrderDetailViewModel orderDetailVm)
+        {
+            orderDetail.OrderID = orderDetailVm.OrderID;
+            orderDetail.ProductID = orderDetailVm.ProductID;
+            orderDetail.Quantity = orderDetailVm.Quantity;
+            orderDetail.Price = orderDetailVm.Price;
+            orderDetail.OrderDate = orderDetailVm.OrderDate;
+            orderDetail.DeliveryDate = orderDetailVm.DeliveryDate;
+            orderDetail.IsOrder = orderDetailVm.IsOrder;
+            orderDetail.IsDelivery = orderDetailVm.IsDelivery;
+
+        }
 
         public static void UpdateApplicationGroup(this ApplicationGroup appGroup, ApplicationGroupViewModel appGroupViewModel)
         {

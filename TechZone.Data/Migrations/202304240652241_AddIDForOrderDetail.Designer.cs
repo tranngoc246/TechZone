@@ -7,13 +7,13 @@ namespace TechZone.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitialDB : IMigrationMetadata
+    public sealed partial class AddIDForOrderDetail : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIDForOrderDetail));
         
         string IMigrationMetadata.Id
         {
-            get { return "202303150417115_InitialDB"; }
+            get { return "202304240652241_AddIDForOrderDetail"; }
         }
         
         string IMigrationMetadata.Source

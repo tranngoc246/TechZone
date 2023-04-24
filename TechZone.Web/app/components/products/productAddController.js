@@ -32,8 +32,10 @@
                 }, function (error) {
                     notificationService.displayError('Thêm mới không thành công.');
                 });
+            console.log($scope.product);
         }
-
+            console.log(JSON.stringify($scope.moreImages));
+        
         function loadProductCategory() {
             var config = {
                 params: {
@@ -77,7 +79,9 @@
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
                 $scope.$apply(function () {
-                    $scope.moreImages.push(fileUrl);
+                    if ($scope.moreImages.indexOf(fileUrl) === -1) {
+                        $scope.moreImages.push(fileUrl);
+                    }
                 })
             }
             finder.popup();

@@ -1,12 +1,12 @@
 ﻿  <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Danh sách sản phẩm
+        Đơn hàng
     </h1>
     <ol class="breadcrumb">
         <li><a href="#/admin"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-        <li><a href="javascript:void(0);">Sản phẩm</a></li>
-        <li class="active">Danh sách sản phẩm</li>
+        <li><a href="javascript:void(0);">Hệ thống</a></li>
+        <li class="active">Đơn hàng</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -14,7 +14,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Danh sách sản phẩm</h3>
+            <h3 class="box-title">Danh sách đơn hàng</h3>
         </div>
         <div class="box-body">
             <div class="row" style="margin-bottom: 10px;">
@@ -27,11 +27,7 @@
                     </div><!-- /input-group -->
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success" ui-sref="product_add"><i class="fa fa-plus"></i> Thêm mới</button>
                     <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa</button>
-                    <a class="btn btn-warning" href="/Assets/admin/templates/ProductImportTemplate.xlsx">Download template</a>
-                    <button class="btn btn-primary" ui-sref="product_import">Nhập từ Excel</button>
-                    <button class="btn btn-default" ng-click="exportExcel()">Xuất ra Excel</button>
                 </div>
             </div>
             <div class="row">
@@ -40,36 +36,33 @@
                         <tr>
                             <th style="width: 0%"><input name="all" type="checkbox" ng-click="selectAll()" /></th>
                             <th style="width: 3%; text-align: center">ID</th>
-                            <th style="width: 7%; text-align:center">Hình ảnh</th>
-                            <th style="width: 30%">Tên sản phẩm</th>
-                            <th style="width: 10%">Danh mục</th>
-                            <th style="width: 10%">Hãng sản xuất</th>
-                            <th style="width: 10%; text-align: center">Số lượng</th>
-                            <th style="width: 10%">Ngày tạo</th>
-                            <th style="width: 10%; text-align:center">Trạng thái</th>
+                            <th style="width: 12%">Tên khách hàng</th>
+                            <th style="width: 25%">Địa chỉ</th>
+                            <th style="width: 9%">Số điện thoại</th>
+                            <th style="width: 10%">Email</th>
+                            <th style="width: 17%">Tin nhắn</th>
+                            <th style="width: 8%; text-align: center">Sản phẩm</th>
+                            <th style="width: 8%; text-align: center">Trạng thái</th>
                             <th style="width: 10%; text-align: center">Thao tác</th>
                         </tr>
-                        <tr ng-repeat="item in products">
+                        <tr ng-repeat="item in data">
                             <td style="vertical-align: middle;"><input type="checkbox" ng-model="item.checked" name="all" /></td>
                             <td style="vertical-align: middle; text-align: center">{{item.ID}}</td>
-                            <td style="vertical-align: middle; text-align: center"><img src="{{item.Image}}" alt="{{item.Name}}" height="50" /></td>
-                            <td style="vertical-align: middle;"><a ui-sref="product_edit({idProduct:item.ID,idCategory:item.ProductCategory.ID})">{{item.Name}}</a></td>
-                            <td style="vertical-align: middle;"><a ui-sref="manufacturer({id:item.ProductCategory.ID})">{{item.ProductCategory.Name}}</a></td>
-                            <td style="vertical-align: middle;"><a ui-sref="products({categoryId:item.CategoryID})">{{item.Manufacturer}}</a></td>
-                            <td style="vertical-align: middle; text-align: center">{{item.Quantity}}</td>
-                            <td style="vertical-align: middle;">
-                                {{item.CreatedDate  | date:'dd/MM/yyyy hh:mm:ss'}}
-                            </td>
+                            <td style="vertical-align: middle;">{{item.CustomerName}}</td>
+                            <td style="vertical-align: middle;">{{item.CustomerAddress}}</td>
+                            <td style="vertical-align: middle;">{{item.CustomerMobile}}</td>
+                            <td style="vertical-align: middle;">{{item.CustomerEmail}}</td>
+                            <td style="vertical-align: middle;">{{item.CustomerMessage}}</td>
+                            <td style="vertical-align: middle; text-align: center"><a ui-sref="order_detail({id:item.ID})">Xem</a></td>
                             <!--class="badge bg-red"-->
                             <td style="vertical-align: middle; text-align: center">
                                 <span ng-class="{'badge bg-red':item.Status==false,'badge bg-green':item.Status==true}">
-                                    {{item.Status | statusFilter}}
+                                    {{item.Status | orderFilter}}
                                 </span>
                             </td>
                             <td style="vertical-align: middle; text-align: center">
                                 <button class="btn btn-sm btn-default" ng-click="exportPdf(item.ID)"><i class="fa fa-file-excel-o"></i></button>
-                                <button class="btn btn-sm btn-primary" ui-sref="product_edit({idProduct:item.ID,idCategory:item.ProductCategory.ID})"><i class="fa fa-pencil"></i></button>
-                                <button class="btn  btn-sm btn-danger" ng-click="deleteProduct(item.ID)"><i class="fa fa-trash"></i></button>
+                                <button class="btn  btn-sm btn-danger" ng-click="deleteItem(item.ID)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                         <tfoot>

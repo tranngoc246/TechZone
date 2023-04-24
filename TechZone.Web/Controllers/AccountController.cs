@@ -11,7 +11,9 @@ using System.Web;
 using System.Web.Mvc;
 using TechZone.Common;
 using TechZone.Model.Models;
+using TechZone.Service;
 using TechZone.Web.App_Start;
+using TechZone.Web.Mappings;
 using TechZone.Web.Models;
 
 namespace TechZone.Web.Controllers
@@ -20,11 +22,21 @@ namespace TechZone.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IProductService _productService;
+        private IOrderService _orderService;
+        private IMappingService _mappingService;
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, 
+            ApplicationSignInManager signInManager,
+            IOrderService orderService,
+            IProductService productService,
+            IMappingService mappingService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _productService = productService;
+            _orderService = orderService;
+            _mappingService = mappingService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -146,9 +158,36 @@ namespace TechZone.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
+            Session[CommonConstants.SessionCart] = new List<ShoppingCartViewModel>();
             IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Index()
+        {
+            var userId = User.Identity.GetUserId();
+            var cart = new List<ShoppingCartViewModel>();
+            var order = _orderService.GetOrderByUserId(userId);
+
+            var orderDetail = _orderService.GetAllOrderDetail(order.ID);
+
+            var orderDetailVm = _mappingService.Mapper.Map<IEnumerable<OrderDetail>, IEnumerable<OrderDetailViewModel>>(orderDetail);
+
+            foreach (var item in orderDetailVm)
+            {
+                if (item.IsOrder)
+                {
+                    var product = _productService.GetById(item.ProductID);
+                    cart.Add(new ShoppingCartViewModel
+                    {
+                        ProductId = item.ProductID,
+                        Product = _mappingService.Mapper.Map<Product, ProductViewModel>(product),
+                        Quantity = item.Quantity
+                    });
+                }
+            }
+            return View(cart);
         }
     }
 }

@@ -37,7 +37,6 @@
                 apiService.get('api/productcategory/getallManufacturer/' + $stateParams.idCategory, config, function (resultManufacturer) {
                     $scope.productManufacturer = resultManufacturer.data.Items;
                 }, function () { });
-
             }, function (error) {
                 notificationService.displayError(error.data);
             });
@@ -91,11 +90,20 @@
             }
             finder.popup();
         }
+
+        $scope.images = [];
+
         $scope.ChooseMoreImage = function () {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
                 $scope.$apply(function () {
-                    $scope.moreImages.push(fileUrl);
+                    if (!Array.isArray($scope.moreImages)) {
+                        $scope.moreImages = [];
+                    }
+                    if ($scope.moreImages.indexOf(fileUrl) === -1)
+                    {
+                        $scope.moreImages.push(fileUrl);
+                    }
                 })
 
             }
