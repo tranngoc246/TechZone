@@ -39,13 +39,25 @@ namespace TechZone.Web.Api
             _mappingService = mappingService;
         }
 
-        [Route("getrevenue")]
+        [Route("getrevenuebydate")]
         [HttpGet]
-        public HttpResponseMessage GetRevenueStatistic(HttpRequestMessage request, string fromDate, string toDate)
+        public HttpResponseMessage GetRevenueStatisticByDate(HttpRequestMessage request, string fromDate, string toDate)
         {
             return CreateHttpResponse(request, () =>
             {
-                var model = _statisticService.GetRevenueStatistic(fromDate, toDate);
+                var model = _statisticService.GetRevenueStatisticByDate(fromDate, toDate);
+                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, model);
+                return response;
+            });
+        }
+
+        [Route("getrevenuebymonth")]
+        [HttpGet]
+        public HttpResponseMessage GetRevenueStatisticByMonth(HttpRequestMessage request, string fromMonth, string toMonth)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var model = _statisticService.GetRevenueStatisticByMonth(fromMonth, toMonth);
                 HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, model);
                 return response;
             });

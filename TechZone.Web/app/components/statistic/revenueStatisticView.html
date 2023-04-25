@@ -14,10 +14,10 @@
         <!-- Left col -->
         <section class="col-lg-7">
             <!-- Custom tabs (Charts with tabs)-->
-            <div class="nav-tabs-custom">
+            <div class="nav-tabs-custom" style="padding-left: 10px;">
                 <!-- Tabs within a box -->
                 <ul class="nav nav-tabs pull-right">
-                    <li class="active"><a href="#revenue-chart" data-toggle="tab">Doanh thu</a></li>
+                    <li class="active"><a href="javascript:void(0);" data-toggle="tab">Doanh thu</a></li>
                 </ul>
                 <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
@@ -25,10 +25,56 @@
                             chart-data="chartdata" chart-labels="labels" chart-series="series"></canvas>
                 </div>
             </div><!-- /.nav-tabs-custom -->
-
         </section><!-- /.Left col -->
-        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <!-- right col -->
         <section class="col-lg-5">
+            <!-- Date range options -->
+            <div class="box box-solid">
+                <div class="box-header">
+                    <i class="fa fa-calendar"></i>
+                    <h3 class="box-title">
+                        Tùy chọn thống kê
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <button class="btn btn-primary" ng-click="getDailyStats()">Thống kê theo ngày</button>
+                    <button class="btn btn-primary" ng-click="getMonthlyStats()">Thống kê theo tháng</button>
+                    <div class="row" ng-show="inputDate">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Từ ngày:</label>
+                                <input type="date" class="form-control" ng-model="date.startDate">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Đến ngày:</label>
+                                <input type="date" class="form-control" ng-model="date.endDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="inputMonth">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Từ tháng:</label>
+                                <input type="month" class="form-control" ng-model="month.startMonth">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label>Đến tháng:</label>
+                                <input type="month" class="form-control" ng-model="month.endMonth">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary" ng-click="revenue()">Thống kê</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Map box -->
             <div class="box box-solid">
                 <div class="box-header">
@@ -43,7 +89,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td>Ngày</td>
+                                <td>{{name}}</td>
                                 <td>Doanh số</td>
                                 <td>Lợi nhuận</td>
                             </tr>
@@ -51,7 +97,7 @@
                         <tbody>
                             <tr ng-repeat="item in tabledata">
                                 <td>
-                                    {{item.Date | date}}
+                                    {{inputDate?(item.Date | date):(item.Month)}}
                                 </td>
                                 <td>
                                     {{item.Revenues | number}}
@@ -67,6 +113,7 @@
                 </div>
             </div>
         </section><!-- right col -->
+
     </div><!-- /.row (main row) -->
 
 </section><!-- /.content -->
