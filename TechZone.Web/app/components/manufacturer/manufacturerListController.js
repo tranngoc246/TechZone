@@ -19,22 +19,25 @@
         $scope.selectAll = selectAll;
 
         $scope.deleteMultiple = deleteMultiple;
+        $scope.count = 0;
 
         function deleteMultiple() {
-            var listId = [];
-            $.each($scope.selected, function (i, item) {
-                listId.push(item.ID);
-            });
-            var config = {
-                params: {
-                    checkedProductCategories: JSON.stringify(listId)
+            $ngBootbox.confirm('Bạn có chắc muốn xóa ' + $scope.count + ' bản ghi này không?').then(function () {
+                var listId = [];
+                $.each($scope.selected, function (i, item) {
+                    listId.push(item.ID);
+                });
+                var config = {
+                    params: {
+                        checkedProductCategories: JSON.stringify(listId)
+                    }
                 }
-            }
-            apiService.del('api/productcategory/deletemulti', config, function (result) {
-                notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi.');
-                search();
-            }, function (error) {
-                notificationService.displayError('Xóa không thành công');
+                apiService.del('api/productcategory/deletemulti', config, function (result) {
+                    notificationService.displaySuccess('Xóa thành công ' + $scope.count + ' bản ghi.');
+                    search();
+                }, function (error) {
+                    notificationService.displayError('Xóa không thành công');
+                });
             });
         }
 
@@ -55,6 +58,7 @@
 
         $scope.$watch("manufacturer", function (n, o) {
             var checked = $filter("filter")(n, { checked: true });
+            $scope.count = checked.length;
             if (checked.length) {
                 $scope.selected = checked;
                 $('#btnDelete').removeAttr('disabled');

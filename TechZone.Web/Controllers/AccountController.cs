@@ -13,6 +13,7 @@ using TechZone.Common;
 using TechZone.Model.Models;
 using TechZone.Service;
 using TechZone.Web.App_Start;
+using TechZone.Web.Infrastructure.Core;
 using TechZone.Web.Mappings;
 using TechZone.Web.Models;
 
@@ -26,7 +27,7 @@ namespace TechZone.Web.Controllers
         private IOrderService _orderService;
         private IMappingService _mappingService;
 
-        public AccountController(ApplicationUserManager userManager, 
+        public AccountController(ApplicationUserManager userManager,
             ApplicationSignInManager signInManager,
             IOrderService orderService,
             IProductService productService,
@@ -62,10 +63,11 @@ namespace TechZone.Web.Controllers
                 _userManager = value;
             }
         }
+
         public AccountController()
         {
-
         }
+
         // GET: Account
         public ActionResult Login(string returnUrl)
         {
@@ -104,7 +106,6 @@ namespace TechZone.Web.Controllers
             return View(model);
         }
 
-
         [HttpGet]
         public ActionResult Register()
         {
@@ -138,11 +139,9 @@ namespace TechZone.Web.Controllers
                     FullName = model.FullName,
                     PhoneNumber = model.PhoneNumber,
                     Address = model.Address
-
                 };
 
                 await _userManager.CreateAsync(user, model.Password);
-
 
                 var adminUser = await _userManager.FindByEmailAsync(model.Email);
                 if (adminUser != null)
@@ -167,27 +166,48 @@ namespace TechZone.Web.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            var cart = new List<ShoppingCartViewModel>();
-            var order = _orderService.GetOrderByUserId(userId);
+            var order = _orderService.GetListOrderByUserId(userId);
 
-            var orderDetail = _orderService.GetAllOrderDetail(order.ID);
+            List<CartOrder> listCart = new List<CartOrder>();
 
-            var orderDetailVm = _mappingService.Mapper.Map<IEnumerable<OrderDetail>, IEnumerable<OrderDetailViewModel>>(orderDetail);
-
-            foreach (var item in orderDetailVm)
+            if (order != null)
             {
-                if (item.IsOrder)
+                foreach (var item in order)
                 {
-                    var product = _productService.GetById(item.ProductID);
-                    cart.Add(new ShoppingCartViewModel
+                    if (item.PaymentStatus != null)
                     {
-                        ProductId = item.ProductID,
-                        Product = _mappingService.Mapper.Map<Product, ProductViewModel>(product),
-                        Quantity = item.Quantity
-                    });
+                        var orderDetail = _orderService.GetAllOrderDetail(item.ID);
+                        var orderDetailVm = _mappingService.Mapper.Map<IEnumerable<OrderDetail>, IEnumerable<OrderDetailViewModel>>(orderDetail);
+
+                        var cart = new List<ShoppingCartViewModel>();
+
+                        foreach (var item1 in orderDetailVm)
+                        {
+                            if (item1.IsOrder)
+                            {
+                                var product = _productService.GetById(item1.ProductID);
+                                cart.Add(new ShoppingCartViewModel
+                                {
+                                    ProductId = item1.ProductID,
+                                    Product = _mappingService.Mapper.Map<Product, ProductViewModel>(product),
+                                    Quantity = item1.Quantity
+                                });
+                            }
+                        }
+                        listCart.Add(new CartOrder
+                        {
+                            Id = "TZDH" + item.ID,
+                            OrderDate = item.CreatedDate,
+                            Status = item.Status,
+                            Cart = cart
+                        });
+                    }
                 }
             }
-            return View(cart);
+
+
+
+            return View(listCart.AsEnumerable());
         }
     }
 }

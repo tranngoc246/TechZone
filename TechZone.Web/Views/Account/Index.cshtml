@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TechZone.Web.Models.ShoppingCartViewModel>
+﻿@using TechZone.Web.Infrastructure.Core
+@model IEnumerable<TechZone.Web.Infrastructure.Core.CartOrder>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Layouts.cshtml";
@@ -13,18 +14,20 @@
     </script>
 }
 <div class="single_top">
-    <h2 style="margin-top: 0; margin-bottom: 30px;">Sản phẩm đã đặt hàng</h2>
+    <h2 style="font-weight: 600; margin: 20px;">Đơn hàng đã đặt</h2>
     <div class="single_grid">
         <div id="cartContent">
             <table class="table">
                 <thead>
                     <tr>
-                        <td style="width: 25px;">STT</td>
-                        <td>Tên sản phẩm</td>
-                        <td>Hình ảnh</td>
-                        <td>Giá</td>
-                        <td>Số lượng</td>
-                        <td>Thành tiền</td>
+                        <th style="width: 25px; border: 1px solid #ddd;">STT</th>
+                        <th style="width: 100px; border: 1px solid #ddd;">Ngày đặt</th>
+                        <th style="border-top: 1px solid #ddd;">Tên sản phẩm</th>
+                        <th style="width: 81px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">Hình ảnh</th>
+                        <th style="text-align: center; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">Giá</th>
+                        <th style="width: 80px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">Số lượng</th>
+                        <th style="width: 93px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">Thành tiền</th>
+                        <th style="width: 120px; border-right: 1px solid #ddd; border-top: 1px solid #ddd; border-left: 1px solid #ddd; text-align: center;">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody id="cartBody">
@@ -33,19 +36,54 @@
                     }
                     @foreach (var item in Model)
                     {
+                        var tempIndex = 1;
+                        var dem = 0;
+                        decimal total = 0;
+                        foreach (var item1 in item.Cart)
+                        {
+                            dem++;
+                            total += item1.Quantity * item1.Product.Price;
+                        }
+                        var tmp = true;
+                        foreach (var item1 in item.Cart)
+                        {
+                            if (tmp)
+                            {
+                                var status = item.Status ? "Đã giao hàng" : "Đang giao";
+                                tmp = false;
+                                <tr>
+                                    <td style="text-align: center; vertical-align: middle; border: 1px solid #ddd;" rowspan="@dem">@(index)</td>
+                                    <td style="vertical-align: middle; border-right: 1px solid #ddd;" rowspan="@dem">@(item.OrderDate)</td>
+                                    <td style="vertical-align: middle;">@item1.Product.Name</td>
+                                    <td style="vertical-align: middle; border-left: 1px solid #ddd;"><img src="@item1.Product.Image" height="50" /></td>
+                                    <td style="vertical-align: middle; border-left: 1px solid #ddd;">@(item1.Product.Price.ToString("N0", new System.Globalization.CultureInfo("en-US")))</td>
+                                    <td style="vertical-align: middle; border-left: 1px solid #ddd; text-align: center;">@item1.Quantity</td>
+                                    <td style="vertical-align: middle; border-left: 1px solid #ddd;" rowspan="@dem">@(total.ToString("N0", new System.Globalization.CultureInfo("en-US")))</td>
+                                    <td style="vertical-align: middle; border-right: 1px solid #ddd; border-left: 1px solid #ddd; text-align: center;" rowspan="@dem"><span class="@(item.Status ? "statustrue" : "statusfalse")">@(status)</span></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td style="vertical-align: middle;">@item1.Product.Name</td>
+                                    <td style="vertical-align: middle; border-left: 1px solid #ddd;"><img src="@item1.Product.Image" height="50" /></td>
+                                    <td style="vertical-align: middle; border-left: 1px solid #ddd;">@(item1.Product.Price.ToString("N0", new System.Globalization.CultureInfo("en-US")))</td>
+                                    <td style="vertical-align: middle; border-left: 1px solid #ddd; text-align: center;">@item1.Quantity</td>
+                                </tr>
+                            }
+
+                            tempIndex++;
+                        }
                         <tr>
-                            <td style="text-align:center">@(index)</td>
-                            <td>@item.Product.Name</td>
-                            <td><img src="@item.Product.Image" height="50" /></td>
-                            <td>@(item.Product.Price.ToString("N0", new System.Globalization.CultureInfo("en-US")))</td>
-                            <td>@item.Quantity</td>
-                            <td>@((item.Quantity*item.Product.Price).ToString("N0", new System.Globalization.CultureInfo("en-US")))</td>
+                            <td colspan="8" style="background-color: #e8e8e8; height: 2px; padding:2px;"></td>
                         </tr>
-                        index++;
+                        index += tempIndex - 1;
                     }
                 </tbody>
+
+
             </table>
-            <button class="btn btn-success btnContinue">Mua hàng</button>
+            <button class="btn btn-success btnContinue" style="margin-left: 10px; margin-bottom: 10px;">Mua hàng</button>
         </div>
         <div class="clearfix"> </div>
     </div>

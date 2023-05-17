@@ -11,6 +11,7 @@ using TechZone.Web.App_Start;
 using TechZone.Web.Infrastructure.Extensions;
 using TechZone.Web.Mappings;
 using TechZone.Web.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace TechZone.Web.Controllers
 {
@@ -70,8 +71,10 @@ namespace TechZone.Web.Controllers
         public JsonResult CreateOrder(string orderViewModel)
         {
             var order = new JavaScriptSerializer().Deserialize<OrderViewModel>(orderViewModel);
+            order.CreatedDate = DateTime.Now;
+
             var orderNew = new Order();
-            var oldOrder = new Order();
+            var oldOrder = new List<Order>();
 
             orderNew.UpdateOrder(order);
 
@@ -80,7 +83,7 @@ namespace TechZone.Web.Controllers
                 orderNew.CustomerID = User.Identity.GetUserId();
                 orderNew.CreatedBy = User.Identity.GetUserName();
 
-                oldOrder = _orderService.GetOrderByUserId(User.Identity.GetUserId());
+                oldOrder = _orderService.GetListOrderByUserId(User.Identity.GetUserId()).ToList();
             }
 
             var cart = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
@@ -104,16 +107,28 @@ namespace TechZone.Web.Controllers
             {
                 if (oldOrder != null)
                 {
-                    foreach (var item in orderDetails)
-                    {
-                        item.OrderID = oldOrder.ID;
-                        _orderService.UpdateOrderDetail(item);
+                    foreach (var item in oldOrder) {
+                        bool check = false;
+                        var orderDetail = _orderService.GetAllOrderDetail(item.ID);
+                        foreach (var item1 in orderDetail)
+                        {
+                            if (!item1.IsOrder)
+                            {
+                                _orderService.DeleteOrderDetail(item1.OrderID, item1.ProductID);
+                                check = true;
+                            }
+                        }
+                        if (!check)
+                        {
+                            item.PaymentStatus = "true";
+                            _orderService.UpdateOrder(item);
+                            _orderService.Save();
+                        }
                     }
                 }
-                else
-                {
-                    _orderService.Create(orderNew, orderDetails);
-                }
+
+                orderNew.PaymentStatus = "true";
+                _orderService.Create(orderNew, orderDetails);
 
                 _orderService.Save();
                 return Json(new
@@ -143,22 +158,24 @@ namespace TechZone.Web.Controllers
                 Session[CommonConstants.SessionCart] = new List<ShoppingCartViewModel>();
                 cart = new List<ShoppingCartViewModel>();
                 var order = _orderService.GetOrderByUserId(userId);
-
-                var orderDetail = _orderService.GetAllOrderDetail(order.ID);
-
-                var orderDetailVm = _mappingService.Mapper.Map<IEnumerable<OrderDetail>, IEnumerable<OrderDetailViewModel>>(orderDetail);
-
-                foreach (var item in orderDetailVm)
+                if (order != null)
                 {
-                    if (!item.IsOrder)
+                    var orderDetail = _orderService.GetAllOrderDetail(order.ID);
+
+                    var orderDetailVm = _mappingService.Mapper.Map<IEnumerable<OrderDetail>, IEnumerable<OrderDetailViewModel>>(orderDetail);
+
+                    foreach (var item in orderDetailVm)
                     {
-                        var product = _productService.GetById(item.ProductID);
-                        cart.Add(new ShoppingCartViewModel
+                        if (!item.IsOrder)
                         {
-                            ProductId = item.ProductID,
-                            Product = _mappingService.Mapper.Map<Product, ProductViewModel>(product),
-                            Quantity = item.Quantity
-                        });
+                            var product = _productService.GetById(item.ProductID);
+                            cart.Add(new ShoppingCartViewModel
+                            {
+                                ProductId = item.ProductID,
+                                Product = _mappingService.Mapper.Map<Product, ProductViewModel>(product),
+                                Quantity = item.Quantity
+                            });
+                        }
                     }
                 }
                 Session[CommonConstants.SessionCart] = cart;
@@ -212,29 +229,54 @@ namespace TechZone.Web.Controllers
             {
                 var userId = User.Identity.GetUserId();
                 var order = _orderService.GetOrderByUserId(userId);
-
-                var orderDetail = _orderService.GetAllOrderDetail(order.ID);
-
-                foreach (var item in cart)
+                if (order != null)
                 {
-                    var od = _orderService.GetOrderDetailByProductId(order.ID, item.ProductId);
-                    if (od != null && !od.IsOrder)
+                    var orderDetail = _orderService.GetAllOrderDetail(order.ID);
+
+                    foreach (var item in cart)
                     {
-                        od.Quantity = item.Quantity;
-                        _orderService.UpdateOrderDetail(od);
+                        var od = _orderService.GetOrderDetailByProductId(order.ID, item.ProductId);
+                        if (od != null && !od.IsOrder)
+                        {
+                            od.Quantity = item.Quantity;
+                            _orderService.UpdateOrderDetail(od);
+                        }
+                        else
+                        {
+                            var detail = new OrderDetail();
+                            detail.OrderID = order.ID;
+                            detail.ProductID = item.ProductId;
+                            detail.Quantity = item.Quantity;
+                            detail.Price = item.Product.Price;
+                            detail.OrderDate = DateTime.Now;
+                            _orderService.AddOrderDetail(detail);
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    var orderNew = new Order();
+                    orderNew.CustomerID = User.Identity.GetUserId();
+                    orderNew.CreatedBy = User.Identity.GetUserName();
+                    orderNew.CustomerName = User.Identity.GetUserName();
+                    orderNew.CustomerAddress = "temp";
+                    orderNew.CustomerEmail = "temp";
+                    orderNew.CustomerMobile = "temp";
+                    orderNew.CustomerMessage = "temp";
+
+                    List<OrderDetail> orderDetail = new List<OrderDetail>();
+                    foreach (var item in cart)
                     {
                         var detail = new OrderDetail();
-                        detail.OrderID = order.ID;
+                        detail.OrderID = orderNew.ID;
                         detail.ProductID = item.ProductId;
                         detail.Quantity = item.Quantity;
                         detail.Price = item.Product.Price;
                         detail.OrderDate = DateTime.Now;
-                        _orderService.AddOrderDetail(detail);
+                        orderDetail.Add(detail);
                     }
+                    _orderService.Create(orderNew, orderDetail);
                 }
-
                 _orderService.Save();
             }
 
@@ -284,6 +326,15 @@ namespace TechZone.Web.Controllers
                 {
                     if (item.ProductId == jitem.ProductId)
                     {
+                        var product = _productService.GetById(jitem.ProductId);
+                        if (product.Quantity < jitem.Quantity)
+                        {
+                            return Json(new
+                            {
+                                status = false,
+                                quantity = product.Quantity
+                            });
+                        }
                         item.Quantity = jitem.Quantity;
                     }
                 }
@@ -319,23 +370,6 @@ namespace TechZone.Web.Controllers
         [HttpPost]
         public JsonResult DeleteAll()
         {
-            if (Request.IsAuthenticated)
-            {
-                var userId = User.Identity.GetUserId();
-                var order = _orderService.GetOrderByUserId(userId);
-
-                var orderDetail = _orderService.GetAllOrderDetail(order.ID);
-
-                foreach (var item in orderDetail)
-                {
-                    if (!item.IsOrder)
-                    {
-                        _orderService.DeleteOrderDetail(order.ID, item.ProductID);
-                    }
-                }
-                _productService.Save();
-            }
-
             Session[CommonConstants.SessionCart] = new List<ShoppingCartViewModel>();
             return Json(new
             {

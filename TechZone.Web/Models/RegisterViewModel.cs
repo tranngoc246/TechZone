@@ -18,6 +18,11 @@ namespace TechZone.Web.Models
         [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
         public string Password { set; get; }
 
+        [Required(ErrorMessage = "Bạn cần nhập xác nhận mật khẩu.")]
+        [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
+        [Compare("Password", ErrorMessage = "Mật khẩu nhập lại không khớp.")]
+        public string ConfirmPassword { set; get; }
+
         [Required(ErrorMessage = "Bạn cần nhập email.")]
         [EmailAddress(ErrorMessage = "Địa chỉ email không đúng.")]
         public string Email { set; get; }

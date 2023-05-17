@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using TechZone.Common;
@@ -160,7 +161,7 @@ namespace TechZone.Service
 
         public IEnumerable<Product> GetLastest(int top)
         {
-            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.HomeFlag).Take(top);
         }
 
         public IEnumerable<Product> GetHotProduct(int top)
@@ -226,7 +227,34 @@ namespace TechZone.Service
         public IEnumerable<Product> GetReatedProducts(int id, int top)
         {
             var product = _productRepository.GetSingleById(id);
-            return _productRepository.GetMulti(x => x.Status && x.ID != id && x.CategoryID == product.CategoryID).OrderByDescending(x => x.CreatedDate).Take(top);
+            List<Tag> listTag = GetListTagByProductId(product.ID).ToList();
+            List<Product> listProduct = new List<Product>();
+
+            var isFirstLoop = true;
+            foreach (Tag tag in listTag) {                
+                int total = 0;
+                List<Product> newListProduct= new List<Product>();
+                if (isFirstLoop)
+                {
+                    newListProduct = _productRepository.GetListProductByTag(tag.ID, 1, 3, out total).ToList();
+                    isFirstLoop = false;
+                }
+                else
+                {
+                    newListProduct = _productRepository.GetListProductByTag(tag.ID, 1, 30, out total).ToList();
+                }
+
+                if (newListProduct != null)
+                {
+                    foreach (Product products in newListProduct)
+                    {
+                        listProduct.Add(products);
+                    }
+                }
+            }
+            listProduct.Remove(product);
+            IEnumerable<Product> result = listProduct.AsEnumerable().OrderBy(x => Guid.NewGuid()).Distinct();
+            return result.OrderBy(x => Guid.NewGuid());
         }
 
         public IEnumerable<Tag> GetListTagByProductId(int id)

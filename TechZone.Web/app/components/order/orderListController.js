@@ -13,6 +13,23 @@
         $scope.search = search;
         $scope.clearSearch = clearSearch;
         $scope.deleteItem = deleteItem;
+        $scope.exportPdf = exportPdf;
+
+        function exportPdf(orderId) {
+            var config = {
+                params: {
+                    id: orderId
+                }
+            }
+            apiService.get('/api/statistic/exportPdf', config, function (response) {
+                if (response.status = 200) {
+                    window.location.href = response.data.Message;
+                }
+            }, function (error) {
+                notificationService.displayError(error);
+
+            });
+        }
 
         function deleteItem(id) {
             $ngBootbox.confirm('Bạn có chắc muốn xóa không?')
@@ -36,22 +53,44 @@
 
         function deleteMultiple() {
             $ngBootbox.confirm('Bạn có chắc muốn xóa ' + $scope.count + ' bản ghi này không?').then(function () {
-            var listId = [];
-            $.each($scope.selected, function (i, item) {
-                listId.push(item.ID);
-            });
-            var config = {
-                params: {
-                    checkedList: JSON.stringify(listId)
+                var listId = [];
+                $.each($scope.selected, function (i, item) {
+                    listId.push(item.ID);
+                });
+                var config = {
+                    params: {
+                        checkedList: JSON.stringify(listId)
+                    }
                 }
-            }
-            apiService.del('api/statistic/deletemulti/order', config, function (result) {
-                notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi.');
+                apiService.del('api/statistic/deletemulti/order', config, function (result) {
+                    notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi.');
+                    search();
+                }, function (error) {
+                    notificationService.displayError('Xóa không thành công');
+                });
+            });
+        }
+        $scope.delivery = delivery;
+        function delivery() {
+            var status = true;
+            $.each($scope.selected, function (i, item) {
+                var data = $scope.data.find(function (elem) {
+                    return elem.ID == item.ID;
+                });
+                if (!data.Status) {
+                    apiService.put('api/statistic/update', data, function (result) {
+                        search();
+                    }, function (error) {
+                        status = false;
+                    });
+                }
+            });
+            if (status) {
+                notificationService.displaySuccess('Giao hàng thành công');
                 search();
-            }, function (error) {
-                notificationService.displayError('Xóa không thành công');
-            });
-            });
+            } else {
+                console.log("Có lỗi xảy ra");
+            }
         }
 
         $scope.selectAll = selectAll;
@@ -75,8 +114,10 @@
             if (checked.length) {
                 $scope.selected = checked;
                 $('#btnDelete').removeAttr('disabled');
+                $('#btnDelivery').removeAttr('disabled');
             } else {
                 $('#btnDelete').attr('disabled', 'disabled');
+                $('#btnDelivery').attr('disabled', 'disabled');
             }
         }, true);
 

@@ -12,6 +12,18 @@
     <script type="text/javascript" src="/Assets/client/js/jquery.flexisel.js"></script>
     <script src="/Assets/client/js/jquery.etalage.min.js"></script>
     <script>
+        function replaceText() {
+            const maxTextLength = 30;
+            const elements = document.querySelectorAll(".relatedProductName");
+            elements.forEach(element => {
+                let myText = element.textContent;
+                if (myText.length > maxTextLength) {
+                    myText = myText.substring(0, maxTextLength - 3) + "...";
+                }
+                element.innerHTML = myText;
+            });
+        }
+
         jQuery(document).ready(function ($) {
             $("#flexiselDemo1").flexisel({
                 visibleItems: 5,
@@ -57,7 +69,7 @@
             <ul id="etalage">
                 <li>
                     <a href="#">
-                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" />
+                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" style="padding: 50px 0px;" />
                         <img class="etalage_source_image img-responsive" src="@Model.Image" title="" />
                     </a>
                 </li>
@@ -69,21 +81,18 @@
                         {
                             foreach (var image in moreImages)
                             {
-                            <li>
-                                <img class="etalage_thumb_image img-responsive" src="@image" />
-                                <img class="etalage_source_image img-responsive" src="@image" title="" />
-                            </li>
-                                }
+                                <li>
+                                    <img class="etalage_thumb_image img-responsive" src="@image" />
+                                    <img class="etalage_source_image img-responsive" src="@image" title="" />
+                                </li>
                             }
                         }
                     }
-
-
+                }
             </ul>
             <div class="clearfix"> </div>
         </div>
         <div class="desc1 span_3_of_2">
-
 
             <h4>@Model.Name</h4>
             <div class="cart-b">
@@ -100,45 +109,45 @@
                     {
                         <li><a href="/tag/@(tag.ID).html/">@(tag.Name)</a>&nbsp;&nbsp;</li>
                     }
-
                 </ul>
             </div>
             <div class="clearfix"></div>
             <div class="share">
                 <h5>Chia sẻ :</h5>
                 <ul class="share_nav">
-                    <li><a href="#"><img src="/Assets/client/images/facebook.png" title="facebook"></a></li>
-                    <li><a href="#"><img src="/Assets/client/images/twitter.png" title="Twiiter"></a></li>
-                    <li><a href="#"><img src="/Assets/client/images/rss.png" title="Rss"></a></li>
-                    <li><a href="#"><img src="/Assets/client/images/gpluse.png" title="Google+"></a></li>
+                    <li><a href="javascript:void(0);"><img src="/Assets/client/images/facebook.png" title="facebook"></a></li>
+                    <li><a href="javascript:void(0);"><img src="/Assets/client/images/twitter.png" title="Twitter"></a></li>
+                    <li><a href="javascript:void(0);"><img src="/Assets/client/images/rss.png" title="Rss"></a></li>
+                    <li><a href="javascript:void(0);"><img src="/Assets/client/images/gpluse.png" title="Google+"></a></li>
                 </ul>
             </div>
-
-
         </div>
         <div class="clearfix"> </div>
     </div>
     @{
         var relatedProducts = (IEnumerable<TechZone.Web.Models.ProductViewModel>)ViewBag.RelatedProducts;
     }
-    <ul id="flexiselDemo1">
-        @foreach (var product in relatedProducts)
-        {
-            <li>
-                <a href="/@(product.Alias).p-@(product.ID).html/">
-                    <img src="@product.Image" />
-                    <div class="grid-flex">
-                        @product.Name
-                        <p>@product.Price</p>
-                    </div>
-                </a>
-            </li>
-        }
-    </ul>
 
+    <h2 class="m_3">Có thể bạn thích</h2>
+    <div style="width:99.8%">
+        <ul id="flexiselDemo1">
+            @foreach (var product in relatedProducts)
+            {
+                <li style="width: 120px">
+                    <a href="/@(product.Alias).p-@(product.ID).html/">
+                        <img src="@product.Image" height="100" style="margin: 10px 0" />
+                        <div class="grid-flex">
+                            <p class="relatedProductName">@product.Name</p>
+                            <p>@product.Price.ToString("N0")</p>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
 
     <div class="toogle">
-        <h3 class="m_3">Chi tiết sản phẩm</h3>
+        <h2 class="m_3">Chi tiết sản phẩm</h2>
         <p class="m_text">@Html.Raw(Model.Content)</p>
     </div>
 </div>

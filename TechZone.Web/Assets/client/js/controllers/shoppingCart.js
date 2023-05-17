@@ -35,23 +35,12 @@
             var productId = parseInt($(this).data('id'));
             cart.deleteItem(productId);
         });
-        $('.txtQuantity').off('input').on('input', function () {
-            var quantity = parseInt($(this).val());
-            var productid = parseInt($(this).data('id'));
-            var price = parseFloat($(this).data('price'));
-            if (isNaN(quantity) == false && quantity > 0) {
-
-                var amount = quantity * price;
-
-                $('#amount_' + productid).text(numeral(amount).format('0,0'));
+        $('.txtQuantity').off('input').on('keypress', function (event) {
+            if (event.keyCode === 13) {
+                cart.quantityLimit($(this));
             }
-            else {
-                $('#amount_' + productid).text(0);
-            }
-
-            $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0'));
-
-            cart.updateAll();
+        }).on('change', function () {
+            cart.quantityLimit($(this));
         });
         $('.btnContinue').off('click').on('click', function (e) {
             e.preventDefault();
@@ -85,6 +74,30 @@
         });
 
     },
+    quantityLimit: function (input) {
+        var quantity = parseInt(input.val());
+        var productid = parseInt(input.data('id'));
+        var price = parseFloat(input.data('price'));
+
+        if (isNaN(quantity) || quantity <= 0) {
+            quantity = 0;
+            alert("Số lượng không hợp lệ");
+            input.val(0);
+        } else {
+            var result = cart.updateAll();
+            if (!result.status) {
+                quantity = result.quantity;
+                input.val(result.quantity);
+            }
+        }
+
+        var amount = quantity * price;
+        $('#amount_' + productid).text(numeral(amount).format('0,0'));
+        $('#lblTotalOrder').text(numeral(cart.getTotalOrder()).format('0,0'));
+
+        // Kiểm tra tiền hàng trước khi submit form
+        $('#btnSubmitOrder').prop('disabled', (cart.getTotalOrder() <= 0));
+    },
     getLoginUser: function () {
         $.ajax({
             url: '/ShoppingCart/GetUser',
@@ -101,7 +114,6 @@
             }
         });
     },
-
     createOrder: function () {
         var order = {
             CustomerName: $('#txtName').val(),
@@ -125,7 +137,7 @@
                     $('#divCheckout').hide();
                     cart.deleteAll();
                     setTimeout(function () {
-                        $('#cartContent').html('Cảm ơn bạn đã đặt hàng thành công. Chúng tôi sẽ liên hệ sớm nhất.<br/><br/><button class="btn btn-success btnContinue">Tiếp tục mua hàng</button>');
+                        $('#cartContent').html('Chúc mừng bạn đã đặt hàng thành công. Chúng tôi sẽ liên hệ với bạn sớm nhất.<br/><br/><button class="btn btn-success btnContinue">Tiếp tục mua hàng</button>');
                     }, 500);
 
                 }
@@ -156,13 +168,16 @@
         });
     },
     updateAll: function () {
+        var result = {};
         var cartList = [];
+
         $.each($('.txtQuantity'), function (i, item) {
             cartList.push({
                 ProductId: $(item).data('id'),
                 Quantity: $(item).val()
             });
         });
+
         $.ajax({
             url: '/ShoppingCart/Update',
             type: 'POST',
@@ -170,13 +185,21 @@
                 cartData: JSON.stringify(cartList)
             },
             dataType: 'json',
+            async: false, // Bật chế độ đồng bộ để có thể trả về kết quả
             success: function (response) {
                 if (response.status) {
                     cart.loadData();
-                    console.log('Update ok');
+                    result.status = true;
+                } else {
+                    alert("Bạn đã nhập quá số lượng sản phẩm trong kho");
+                    $('.txtQuantity[data-id="' + response.productId + '"]').val(response.quantity);
+                    result.status = false;
+                    result.quantity = response.quantity;
                 }
             }
         });
+
+        return result;
     },
     deleteItem: function (productId) {
         $.ajax({

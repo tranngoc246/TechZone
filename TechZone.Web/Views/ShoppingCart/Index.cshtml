@@ -7,18 +7,19 @@
     <script src="~/Assets/client/js/controllers/shoppingCart.js"></script>
 }
 <div class="single_top">
+    <h2 style="font-weight: 600; margin: 20px;">Giỏ hàng</h2>
     <div class="single_grid">
         <div id="cartContent">
             <table class="table">
                 <thead>
                     <tr>
-                        <td style="width: 25px;">STT</td>
-                        <td>Tên sản phẩm</td>
-                        <td>Hình ảnh</td>
-                        <td>Giá</td>
-                        <td style="width:172px">Số lượng</td>
-                        <td>Thành tiền</td>
-                        <td style="width: 36px;text-align:center">#</td>
+                        <th style="width: 25px;">STT</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Hình ảnh</th>
+                        <th style="">Giá</th>
+                        <th style="width:70px">Số lượng</th>
+                        <th>Thành tiền</th>
+                        <th style="width: 36px;text-align:center">#</th>
                     </tr>
                 </thead>
                 <tbody id="cartBody"></tbody>
@@ -47,8 +48,8 @@
                             <input type="text" class="textbox" id="txtAddress" name="address" placeholder="Địa chỉ">
                             <input type="text" class="textbox" id="txtEmail" name="email" placeholder="Email">
                             <input type="text" class="textbox" id="txtPhone" name="phone" placeholder="Điện thoại">
-                            <textarea value="" id="txtMessage">Message</textarea>
-                            <input type="button" id="btnCreateOrder" value="Đặt hàng">
+                            <textarea value="" id="txtMessage" style="height:100px">Message</textarea>
+                            <input type="button" id="btnCreateOrder" class="btn btn-success btnContinue" value="Đặt hàng">
                             <div class="clearfix"> </div>
                         </form>
 
@@ -63,13 +64,13 @@
 
 <script id="tplCart" type="x-tmpl-mustache">
   <tr>
-    <td style="text-align:center">{{Id}}</td>
-    <td>{{ProductName}}</td>
-    <td><img src="{{Image}}" height="50" /></td>
-    <td>{{PriceF}}</td>
-    <td><input type="number" data-id="{{ProductId}}" data-price="{{Price}}" value="{{Quantity}}" class="input txtQuantity" /></td>
-    <td id="amount_{{ProductId}}">{{Amount}}</td>
-    <td><button class="btn btn-danger btnDeleteItem" data-id="{{ProductId}}"><i class="fa fa-trash"></i></button></td>
+    <td style="text-align:center; vertical-align: middle;">{{Id}}</td>
+    <td style="vertical-align: middle;">{{ProductName}}</td>
+    <td style="vertical-align: middle;"><img src="{{Image}}" height="50" /></td>
+    <td style="vertical-align: middle;">{{PriceF}}</td>
+    <td style="vertical-align: middle;"><input style="width: 65px;" type="number" data-id="{{ProductId}}" data-price="{{Price}}" value="{{Quantity}}" class="input txtQuantity" /></td>
+    <td style="vertical-align: middle;" id="amount_{{ProductId}}">{{Amount}}</td>
+    <td style="vertical-align: middle;"><button class="btn btn-danger btnDeleteItem" data-id="{{ProductId}}"><i class="fa fa-trash"></i></button></td>
   </tr>
 
 </script>

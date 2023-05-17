@@ -5,6 +5,7 @@
     <meta name="description" content="@ViewBag.MetaKeyword">
     <meta name="keywords" content="@ViewBag.MetaDescription">
     @Styles.Render("~/css/base")
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,7 +19,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="replaceText()">
     <!--header-->
     @{Html.RenderAction("Header", "Home");}
     <!---->
@@ -35,22 +36,36 @@
     @RenderSection("footerJS", required: false)
 
     <script type="text/javascript">
-        $(function () {
+        $(document).ready(function () {
             var menu_ul = $('.menu > li > ul'),
                 menu_a = $('.menu > li > a');
-            menu_ul.hide();
-            menu_a.click(function (e) {
-                e.preventDefault();
-                if (!$(this).hasClass('active')) {
-                    menu_a.removeClass('active');
-                    menu_ul.filter(':visible').slideUp('normal');
-                    $(this).addClass('active').next().stop(true, true).slideDown('normal');
-                } else {
-                    $(this).removeClass('active');
-                    $(this).next().stop(true, true).slideUp('normal');
-                }
+
+            // Ẩn toàn bộ danh sách con
+            menu_ul.addClass('hide');
+
+            // Hiển thị menu con khi rê chuột vào menu cha
+            menu_a.hover(function () {
+                // Ẩn toàn bộ menu con
+                menu_ul.addClass('hide');
+                menu_ul.removeClass('show');
+                menu_a.removeClass('color');
+
+                // Hiển thị danh sách con của menu cha vừa rê chuột đến
+                $(this).next(menu_ul).removeClass('hide');
+                $(this).next(menu_ul).addClass('show');
+                    
+                $(this).addClass('color');
+            });
+
+            // Ẩn menu con khi rời khỏi menu
+            $('.menu').mouseleave(function () {
+                menu_ul.addClass('hide');
+                menu_ul.removeClass('show');
+                menu_a.removeClass('color');
             });
         });
+
+
     </script>
 </body>
 </html>

@@ -5,11 +5,11 @@
     ViewBag.MetaDescription = Model.Name;
     Layout = "~/Views/Shared/Layouts.cshtml";
 }
-
-<div class="single_top">
-    <div class="single_grid">
-        <h1>@Model.Name</h1>
-        @Html.Raw(Model.Content)
-        <div class="clearfix"> </div>
+<div class="main">
+    <div class="reservation_top">
+        <div class="contact_right">
+            <h3>@Model.Name</h3>
+            @Html.Raw(Model.Content)
+        </div>
     </div>
 </div>

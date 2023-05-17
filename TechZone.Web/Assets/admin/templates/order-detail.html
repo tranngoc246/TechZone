@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa đơn mua hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .table td, th {
+            border: 1px solid #000;
+            padding: 5px;
+        }
+
+        .contentedit {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+
+            .contentedit .company-info {
+                text-align: left;
+                margin-bottom: 20px;
+            }
+
+                .contentedit .company-info p {
+                    margin: 0;
+                }
+
+            .contentedit h2 {
+                font-size: 14px;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+
+            .contentedit p {
+                margin: 5px 0;
+            }
+
+            .contentedit .total {
+                font-weight: bold;
+            }
+
+        .editdocs {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contentedit">
+        <table style="height:46px;width:100%;border-collapse:collapse;" border="0">
+            <tbody>
+                <tr style=" font-weight: bold; font-size:16px; height:23px">
+                    <td style="width:40%;text-align:center;">
+                        TECHZONE
+                    </td>
+                    <td style="width: 60%; text-align: center;">
+                        HÓA ĐƠN BÁN HÀNG
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:30%;text-align:center">
+                        Địa chỉ: Hà Nội
+                    </td>
+                    <td style="width:70%;text-align:center">
+                        Thiết bị điện tử
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:30%;text-align:center">
+                        ĐT: 0976321584
+                    </td>
+                    <td style="width:70%;text-align:center">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="height:46px;width:100%;border-collapse:collapse;margin-left:auto;margin-right:auto" border="0">
+            <tbody>
+                <tr style="height:23px">
+                    <td colspan="2" style="height: 23px">
+                        Mã hóa đơn: {{ID}}
+                    </td>
+                </tr>
+                <tr style="height:23px">
+                    <td colspan="2" style="height: 23px">
+                        Ngày đặt hàng: {{CreatedDate}}
+                    </td>
+                </tr>
+                <tr style="height:23px">
+                    <td colspan="2">
+                        <h3 style="margin: 5px 0;">Thông tin khách hàng</h3>
+                    </td>
+                </tr>
+                <tr style="height:23px">
+                    <td style="width: 60%; height: 23px">
+                        Tên khách hàng: {{CustomerName}}
+                    </td>
+                    <td style="width: 40%; height: 23px">
+                        Số điện thoại: {{CustomerMobile}}
+                    </td>
+                </tr>
+                <tr style="height:23px">
+                    <td style="width: 60%; height: 23px">
+                        Địa chỉ: {{CustomerAddress}}
+                    </td>
+                    <td style="width: 40%; height: 23px">
+                        Email: {{CustomerEmail}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Danh sách sản phẩm</h3>
+        <table class="table" style="width:100%;border-color:#000" border="1" cellspacing="0" cellpadding="5">
+            <tbody>
+                <tr style="height:24px">
+                    <td style="text-align:center;height:24px">TT</td>
+                    <td style="text-align:center;height:24px">TÊN HÀNG</td>
+                    <td style="text-align:center;height:24px">SỐ LƯỢNG</td>
+                    <td style="text-align:center;height:24px">ĐƠN GIÁ</td>
+                    <td style="text-align:center;height:24px">THÀNH TIỀN</td>
+                </tr>
+                {{Detail}}                
+                <tr>
+                    <td style="text-align:left" colspan="4">TỔNG CỘNG</td>
+                    <td  style="text-align:right">{{TotalNumber}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Thành tiền (viết bằng chữ): {{TotalText}}</p>
+        <table style="height:46px;width:100%;border-collapse:collapse;margin-left:auto;margin-right:auto" border="0">
+            <tbody>
+                <tr style="height:23px">
+                    <td style="width:50%;"></td>
+                    <td style="width: 50%; text-align: center; font-style: italic; height: 23px">
+                        Ngày ....... tháng ....... năm 20.....
+                    </td>
+                </tr>
+                <tr style="height: 23px; font-weight: bold">
+                    <td style="width: 50%; text-align: center; height: 23px">
+                        KHÁCH HÀNG
+                    </td>
+                    <td style="width: 50%; text-align: center; height: 23px">
+                        NGƯỜI BÁN HÀNG
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

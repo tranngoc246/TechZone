@@ -5,55 +5,57 @@
     Layout = "~/Views/Shared/Layouts.cshtml";
 }
 <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
-<div class="register" style="padding: 1em 0 2em">
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { action = "/Account/Register/" }))
-    {
-        @Html.AntiForgeryToken();
-        @Html.ValidationSummary(false, "", new { @class = "error" })
-
-        if (ViewData["SuccessMsg"] != null)
+<div class="account_grid">
+    <div class="login-right">
+        <h3>Đăng Ký</h3>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { action = "/Account/Register/" }))
         {
+            @Html.AntiForgeryToken();
+            @Html.ValidationSummary(false, "", new { @class = "error" })
 
-            <div class="alert alert-success" role="alert">
-                <strong>Chúc mừng bạn! </strong> đã đăng ký thành công.
-                <br />Vui lòng click <a href="/dang-nhap.html/">vào đây </a>để đăng nhập.
-            </div>
-        }
-        else
-        {
-            <div class="register-top-grid">
-                <h1>Thông tin cá nhân</h1>
-                <div class="mation">
-                    <label for="fullname">Họ tên:</label><br>
-                    @Html.TextBoxFor(m => m.FullName, new { @id = "fullname", @type = "text", @required = "required" })<br><br>
-                    <label for="email">Email:</label><br>
-                    @Html.TextBoxFor(m => m.Email, new { @id = "email", @type = "text", @required = "required" })<br><br>
-                    <label for="address">Địa chỉ:</label><br>
-                    @Html.TextBoxFor(m => m.Address, new { @id = "address", @type = "text" })<br><br>
-                    <label for="phone">Số điện thoại:</label><br>
-                    @Html.TextBoxFor(m => m.PhoneNumber, new { @id = "phone", @type = "text", @required = "required" })<br><br>
-                    <label for="username">Tên đăng nhập:</label><br>
-                    @Html.TextBoxFor(m => m.UserName, new { @id = "username", @required = "required" })<br><br>
-                    <label for="password">Mật khẩu:</label><br>
-                    @Html.PasswordFor(m => m.Password, new { @id = "password", @type = "password", @required = "required" })<br><br>
+            if (ViewData["SuccessMsg"] != null)
+            {
 
-                    <label for="confirm-password">Xác nhận mật khẩu:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required><br><br>
+                <div class="alert alert-success" role="alert">
+                    <strong>Chúc mừng bạn! </strong> đã đăng ký thành công.
+                    <br />Vui lòng click <a href="/dang-nhap.html/">vào đây </a>để đăng nhập.
+                </div>
+            }
+            else
+            {
+                <div class="register-top-grid">
+                    <h3 style="margin: 25px 0; color:black">Thông tin cá nhân</h3>
+                    <div class="mation">
+                        <label for="fullname">Họ tên:</label><br>
+                        @Html.TextBoxFor(m => m.FullName, new { @id = "fullname", @type = "text", @required = "required" })<br><br>
+                        <label for="email">Email:</label><br>
+                        @Html.TextBoxFor(m => m.Email, new { @id = "email", @type = "text", @required = "required" })<br><br>
+                        <label for="address">Địa chỉ:</label><br>
+                        @Html.TextBoxFor(m => m.Address, new { @id = "address", @type = "text" })<br><br>
+                        <label for="phone">Số điện thoại:</label><br>
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @id = "phone", @type = "text", @required = "required" })<br><br>
+                        <label for="username">Tên đăng nhập:</label><br>
+                        @Html.TextBoxFor(m => m.UserName, new { @id = "username", @required = "required" })<br><br>
+                        <label for="password">Mật khẩu:</label><br>
+                        @Html.PasswordFor(m => m.Password, new { @id = "password", @type = "password", @required = "required" })<br><br>
+                        <label for="confirm-password">Xác nhận mật khẩu:</label><br>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @id = "confirm-password", @type = "password", @required = "required" })<br><br>
 
-                    @{
-                        MvcCaptcha registerCaptcha = new MvcCaptcha("registerCaptcha");
-                    }
-                    <span>Captcha<label>*</label></span>
-                    @Html.Captcha(registerCaptcha)
-                    @Html.TextBox("CaptchaCode")
+                        @{
+                            MvcCaptcha registerCaptcha = new MvcCaptcha("registerCaptcha");
+                        }
+                        <span>Captcha</span>
+                        @Html.Captcha(registerCaptcha)
+                        @Html.TextBox("CaptchaCode")
+                    </div>
+                    <div class="clearfix"> </div>
                 </div>
                 <div class="clearfix"> </div>
-            </div>
-            <div class="clearfix"> </div>
-            <div class="register-but">
-                <input type="submit" value="Đăng ký">
-                <div class="clearfix"> </div>
-            </div>
+                <div class="register-but">
+                    <input type="submit" value="Đăng ký">
+                    <div class="clearfix"> </div>
+                </div>
+            }
         }
-    }
+    </div>
 </div>

@@ -390,6 +390,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
+    <Compile Include="Infrastructure\Core\CartOrder.cs" />
     <Compile Include="Infrastructure\Core\PaginationSet.cs" />
     <Compile Include="Infrastructure\Core\ServiceFactory.cs" />
     <Compile Include="Infrastructure\Extensions\EntityExtensions.cs" />
@@ -5209,6 +5210,7 @@
     <Content Include="Assets\admin\libs\toastr\toastr.js" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
     <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
+    <Content Include="Assets\admin\templates\order-detail.html" />
     <Content Include="Assets\admin\templates\product-detail.html" />
     <Content Include="Assets\client\css\bootstrap.css" />
     <Content Include="Assets\client\css\custom.css" />
@@ -5235,8 +5237,10 @@
     <Content Include="Assets\client\images\facebook.png" />
     <Content Include="Assets\client\images\gpluse.png" />
     <Content Include="Assets\client\images\img-sprite.png" />
+    <Content Include="Assets\client\images\iPhone14ProMax.png" />
     <Content Include="Assets\client\images\label_new.png" />
     <Content Include="Assets\client\images\logo.png" />
+    <Content Include="Assets\client\images\MacBookAir13.png" />
     <Content Include="Assets\client\images\pi.jpg" />
     <Content Include="Assets\client\images\pi1.jpg" />
     <Content Include="Assets\client\images\pi2.jpg" />
@@ -5267,6 +5271,7 @@
     <Content Include="Assets\client\images\si3.jpg" />
     <Content Include="Assets\client\images\si4.jpg" />
     <Content Include="Assets\client\images\star.png" />
+    <Content Include="Assets\client\images\TechzoneLogo.png" />
     <Content Include="Assets\client\images\tick1.png" />
     <Content Include="Assets\client\images\twitter.png" />
     <Content Include="Assets\client\images\wa.jpg" />
@@ -5298,8 +5303,6 @@
     <Folder Include="Reports\" />
     <Folder Include="Scripts\" />
     <Folder Include="UploadedFiles\" />
-    <Folder Include="Views\About\" />
-    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".bowerrc" />

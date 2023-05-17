@@ -27,6 +27,7 @@
                     </div><!-- /input-group -->
                 </div>
                 <div class="col-md-6">
+                    <button class="btn btn-success" ng-click="delivery()" id="btnDelivery" disabled>Giao hàng</button>
                     <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa</button>
                 </div>
             </div>
@@ -37,8 +38,8 @@
                             <th style="width: 0%"><input name="all" type="checkbox" ng-click="selectAll()" /></th>
                             <th style="width: 3%; text-align: center">ID</th>
                             <th style="width: 12%">Tên khách hàng</th>
-                            <th style="width: 25%">Địa chỉ</th>
-                            <th style="width: 9%">Số điện thoại</th>
+                            <th style="width: 24%">Địa chỉ</th>
+                            <th style="width: 10%">Số điện thoại</th>
                             <th style="width: 10%">Email</th>
                             <th style="width: 17%">Tin nhắn</th>
                             <th style="width: 8%; text-align: center">Sản phẩm</th>
@@ -61,7 +62,7 @@
                                 </span>
                             </td>
                             <td style="vertical-align: middle; text-align: center">
-                                <button class="btn btn-sm btn-default" ng-click="exportPdf(item.ID)"><i class="fa fa-file-excel-o"></i></button>
+                                <button class="btn btn-sm btn-default" ng-click="exportPdf(item.ID)"><i class="fa fa-file-pdf-o"></i></button>
                                 <button class="btn  btn-sm btn-danger" ng-click="deleteItem(item.ID)"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>

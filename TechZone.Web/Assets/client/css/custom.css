@@ -1,4 +1,8 @@
-﻿.tag {
+﻿body {
+    background: #f5f6f8;
+}
+
+.tag {
     display: block;
 }
 
@@ -6,7 +10,7 @@
     float: left;
 }
 
-.error{
+.error {
     color: red;
     font-style: italic;
 }
@@ -34,12 +38,121 @@
     border: none;
     outline: none;
 }
-.arrow-img {
-    padding-top: 20px;
-    padding-right: 10px;
+
+.account li {
+    display: inline;
+}
+
+#map {
+    height: 300px;
+}
+
+#btn {
+    padding: 10px 25px;
+    color: #fff;
+    background: #F97E76;
+    font-size: 1.1em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    transition: 0.5s all;
     float: right;
 }
 
-.account li{
-    display:inline;
+.bottom-header {
+    background-color: #fe0000;
+}
+
+.toogle {
+    font-size: initial;
+}
+
+    .toogle li {
+        margin-left: 20px;
+    }
+
+.top-header-right {
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    padding: 0;
+    color: #000;
+    width: 73%;
+}
+
+    .top-header-right nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .top-header-right nav ul li {
+            width: 100%;
+            padding: 14px;
+            color: #000;
+            padding-left: 70px;
+        }
+
+            .top-header-right nav ul li:hover {
+                color: #fe0000;
+            }
+
+            .top-header-right nav ul li a {
+                color: inherit;
+                text-decoration: none;
+                font-size: 16px;
+                text-transform: uppercase;
+            }
+
+.sub-cate .menu li {
+    position: relative;
+}
+
+.sub-cate .menu .cute {
+    position: absolute;
+    top: -1px;
+    right: -87%;
+    width: 250px;
+}
+.color {
+    background-color: #fe0000;
+    color: white;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+.statusfalse {
+    background: red;
+    border-radius: 20px;
+    padding: 5px 9px;
+    color: white;
+}
+.statustrue {
+    background: green;
+    border-radius: 20px;
+    padding: 5px 9px;
+    color: white;
+}
+
+.search {
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.post {
+    height: 250px;
+    margin-left: -15px;
+    width: 288px;
+    margin-top: 12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    position: relative;
+    padding: 0;
 }

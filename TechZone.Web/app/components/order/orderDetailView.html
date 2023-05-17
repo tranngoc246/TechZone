@@ -28,7 +28,6 @@
                     </div><!-- /input-group -->
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success" ng-click="delivery()" id="btnDelivery" disabled>Giao hàng</button>
                     <button class="btn btn-danger" ng-click="deleteMultiple()" id="btnDelete" disabled>Xóa</button>
                 </div>
             </div>
@@ -42,8 +41,6 @@
                             <th style="width: 10%">Số lượng</th>
                             <th style="width: 10%">Giá tiền</th>
                             <th style="width: 10%; text-align: center">Ngày đặt hàng</th>
-                            <th style="width: 10%; text-align: center">Ngày giao hàng</th>
-                            <th style="width: 7%; text-align:center">Trạng thái</th>
                             <th style="width: 10%; text-align: center">Thao tác</th>
                         </tr>
                         <tr ng-repeat="item in data">
@@ -54,13 +51,6 @@
                             <td style="vertical-align: middle;">{{item.Price}}</td>
                             <td style="vertical-align: middle;">
                                 {{item.OrderDate  | date:'dd/MM/yyyy hh:mm:ss'}}
-                            </td><td style="vertical-align: middle;">
-                                {{item.DeliveryDate  | date:'dd/MM/yyyy hh:mm:ss'}}
-                            </td>
-                            <td style="vertical-align: middle; text-align: center">
-                                <span ng-class="{'badge bg-red':item.IsDelivery==false,'badge bg-green':item.IsDelivery==true}">
-                                    {{item.IsDelivery | orderFilter}}
-                                </span>
                             </td>
                             <td style="vertical-align: middle; text-align: center">
                                 <button class="btn  btn-sm btn-danger" ng-click="deleteItem(item.Product.ID)"><i class="fa fa-trash"></i></button>

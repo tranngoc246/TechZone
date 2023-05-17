@@ -6,29 +6,22 @@
 <div class="account_grid">
     <div class="login-right">
         <h3>Đăng nhập</h3>
-        @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUrl}, FormMethod.Post, new {action = "/Account/Login/" }))
+        @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { action = "/Account/Login/" }))
         {
-            @Html.ValidationSummary(false, "", new { @class = "error" })
             <div>
-                <span>Tài khoản<label>*</label></span>
+                <span>Tài khoản</span>
                 @Html.TextBoxFor(model => model.UserName)
             </div>
             <div>
-                <span>Password<label>*</label></span>
+                <span>Password</span>
                 @Html.PasswordFor(model => model.Password)
             </div>
-            <div>
-                @Html.CheckBoxFor(model => model.RememberMe)
-                Nhớ mật khẩu?
-            </div>
-            <a class="forgot" href="#">Forgot Your Password?</a>
-            <input type="submit" value="Login">
+            @Html.ValidationSummary(false, "", new { @class = "error" })
+            <input type="submit" value="Đăng nhập">
         }
     </div>
     <div class="login-left">
-        <h3>Chưa có tài khoản</h3>
-        <p>Nếu bạn chưa có tài khoản vui lòng đăng ký tại link dưới đây:</p>
-        <a class="acount-btn" href="/dang-ky.html/">Đăng ký thành viên</a>
+        <p>Nếu bạn chưa có tài khoản vui lòng đăng ký tại <a href="/dang-ky.html/">đây</a></p>
     </div>
     <div class="clearfix"> </div>
 </div>

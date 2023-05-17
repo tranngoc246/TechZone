@@ -388,7 +388,6 @@ namespace TechZone.Web.Api
                 decimal price = 0;
                 decimal promotionPrice = 0;
 
-                bool status = false;
                 bool showHome = false;
                 bool isHot = false;
                 int warranty;
@@ -434,14 +433,13 @@ namespace TechZone.Web.Api
                     }
                     if (!string.IsNullOrWhiteSpace(workSheet.Cells[i, 9].Value?.ToString()))
                     {
-                        productViewModel.MetaKeyword = workSheet.Cells[i, 9].Value.ToString();
+                        productViewModel.Tags = workSheet.Cells[i, 9].Value.ToString();
                     }
                     if (!string.IsNullOrWhiteSpace(workSheet.Cells[i, 10].Value?.ToString()))
                     {
                         productViewModel.MetaDescription = workSheet.Cells[i, 10].Value.ToString();
                     }
 
-                    bool.TryParse(workSheet.Cells[i, 11].Value.ToString(), out status);
                     productViewModel.Status = false;
 
                     bool.TryParse(workSheet.Cells[i, 12].Value.ToString(), out showHome);
