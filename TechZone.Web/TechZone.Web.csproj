@@ -5259,6 +5259,9 @@
     <Content Include="Assets\client\images\pic6.jpg" />
     <Content Include="Assets\client\images\pic7.jpg" />
     <Content Include="Assets\client\images\pic8.jpg" />
+    <Content Include="Assets\client\images\post\2903-TTT-2.png" />
+    <Content Include="Assets\client\images\post\thang-uu-dai-thuong-hieu-panasonic-01.jpg" />
+    <Content Include="Assets\client\images\post\vong-qua-may-man-uu-dai-panasonic-1.jpg" />
     <Content Include="Assets\client\images\review.png" />
     <Content Include="Assets\client\images\rss.png" />
     <Content Include="Assets\client\images\s1.jpg" />
@@ -5270,6 +5273,11 @@
     <Content Include="Assets\client\images\si2.jpg" />
     <Content Include="Assets\client\images\si3.jpg" />
     <Content Include="Assets\client\images\si4.jpg" />
+    <Content Include="Assets\client\images\slide\Cate-DT-694x376_Ver3.jpg" />
+    <Content Include="Assets\client\images\slide\Homepage-Banner_694x376px.jpg" />
+    <Content Include="Assets\client\images\slide\Laptop-FUJITSU-694x376-Home banner.jpg" />
+    <Content Include="Assets\client\images\slide\Title-San-Top-SP-WEB.jpg" />
+    <Content Include="Assets\client\images\slide\Title-San-Uu-Dai-Noi-Bat-WEB.jpg" />
     <Content Include="Assets\client\images\star.png" />
     <Content Include="Assets\client\images\TechzoneLogo.png" />
     <Content Include="Assets\client\images\tick1.png" />

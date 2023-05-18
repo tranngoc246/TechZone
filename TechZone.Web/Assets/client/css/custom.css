@@ -156,3 +156,14 @@
     position: relative;
     padding: 0;
 }
+
+.postTitle {
+    background: #fe0000;
+    margin-top: 10px;
+    margin-left: -15px;
+    margin-bottom: -12px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}

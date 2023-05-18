@@ -127,8 +127,9 @@
     @{
         var relatedProducts = (IEnumerable<TechZone.Web.Models.ProductViewModel>)ViewBag.RelatedProducts;
     }
-
-    <h2 class="m_3">Có thể bạn thích</h2>
+    <h2 class="m_3" style="background: #fe0000;margin-top: 10px; padding: 10px; font-size: 20px; font-weight: bold; color: #fff;">
+        Có thể bạn thích
+    </h2>
     <div style="width:99.8%">
         <ul id="flexiselDemo1">
             @foreach (var product in relatedProducts)
@@ -147,7 +148,11 @@
     </div>
 
     <div class="toogle">
-        <h2 class="m_3">Chi tiết sản phẩm</h2>
-        <p class="m_text">@Html.Raw(Model.Content)</p>
+        <h2 class="m_3" style="background: #fe0000;margin-top: 10px; padding: 10px; font-size: 20px; font-weight: bold; color: #fff; width:200px">
+            Chi tiết sản phẩm
+        </h2>
+        <div style="border: 1px solid #ddd; margin-top: -10px; padding: 0 10px;">
+            <p class="m_text">@Html.Raw(Model.Content)</p>
+        </div>
     </div>
 </div>

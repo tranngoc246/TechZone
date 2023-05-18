@@ -14,7 +14,7 @@
     </script>
 }
 <div class="single_top">
-    <h2 style="font-weight: 600; margin: 20px;">Đơn hàng đã đặt</h2>
+    <h2 style="background: #fe0000; margin-top: -10px; margin-left: -10px; margin-right: -10px; padding: 10px; font-size: 24px; font-weight: bold; color: #fff;">Đơn hàng đã đặt</h2>
     <div class="single_grid">
         <div id="cartContent">
             <table class="table">
@@ -50,11 +50,12 @@
                             if (tmp)
                             {
                                 var status = item.Status ? "Đã giao hàng" : "Đang giao";
+                                var url = "/" + item1.Product.Alias + ".p-" + item1.Product.ID + ".html/";
                                 tmp = false;
                                 <tr>
                                     <td style="text-align: center; vertical-align: middle; border: 1px solid #ddd;" rowspan="@dem">@(index)</td>
                                     <td style="vertical-align: middle; border-right: 1px solid #ddd;" rowspan="@dem">@(item.OrderDate)</td>
-                                    <td style="vertical-align: middle;">@item1.Product.Name</td>
+                                    <td style="vertical-align: middle;"><a href="@url">@item1.Product.Name</a></td>
                                     <td style="vertical-align: middle; border-left: 1px solid #ddd;"><img src="@item1.Product.Image" height="50" /></td>
                                     <td style="vertical-align: middle; border-left: 1px solid #ddd;">@(item1.Product.Price.ToString("N0", new System.Globalization.CultureInfo("en-US")))</td>
                                     <td style="vertical-align: middle; border-left: 1px solid #ddd; text-align: center;">@item1.Quantity</td>
